@@ -26,27 +26,30 @@ export const Hero: React.FC<HeroProps> = ({ onStartProject }) => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold text-primary leading-[1.05] tracking-tight mb-6"
+              className="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold text-primary leading-[1.08] tracking-tight mb-6"
             >
               You bring the idea.
               <br />
-              <span className="relative inline-block mt-1">
-                We make it real.
-                {/* Sketch Underline Squiggle */}
-                <svg
-                  className="absolute -bottom-3 left-0 w-full h-4 text-coral pointer-events-none"
-                  viewBox="0 0 260 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M 5 12 Q 70 3, 135 11 T 255 10"
-                    stroke="currentColor"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
+              <span className="inline-block mt-1">
+                We make it{' '}
+                <span className="relative inline-block text-coral text-[1.18em] font-black tracking-tight align-baseline">
+                  real.
+                  {/* Sketch Underline Squiggle */}
+                  <svg
+                    className="absolute -bottom-2 sm:-bottom-3.5 left-0 w-full h-3 sm:h-4 text-coral pointer-events-none"
+                    viewBox="0 0 140 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M 4 12 Q 35 4, 70 10 T 136 9"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
               </span>
             </motion.h1>
 
