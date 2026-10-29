@@ -89,7 +89,6 @@ const CULTURE_POINTS = [
 
 export const CareersPage: React.FC = () => {
   const [expandedRoleId, setExpandedRoleId] = useState<string | null>('fullstack-ts');
-  const [selectedRole, setSelectedRole] = useState('Full-Stack TypeScript Engineer');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [portfolioLink, setPortfolioLink] = useState('');
@@ -102,20 +101,20 @@ export const CareersPage: React.FC = () => {
   };
 
   const handleApplyClick = (roleTitle: string) => {
-    setSelectedRole(roleTitle);
-    const formEl = document.getElementById('apply-form');
-    if (formEl) {
-      formEl.scrollIntoView({ behavior: 'smooth' });
-    }
+    const subject = encodeURIComponent(`Application: ${roleTitle}`);
+    const body = encodeURIComponent(
+      `Hi HumStack team,\n\nI'm applying for the ${roleTitle} role.\n\nName: \nGitHub / Portfolio: \nBrief note on why you'd be a great fit: \n`
+    );
+    window.location.href = `mailto:careers@humstack.in?subject=${subject}&body=${body}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const subject = encodeURIComponent(`Application: ${name} (${selectedRole})`);
+    const subject = encodeURIComponent(`Open Application / Craft Pitch: ${name}`);
     const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nRole: ${selectedRole}\nPortfolio / GitHub: ${portfolioLink}\n\nWhat I built:\n${aboutYou}`
+      `Name: ${name}\nEmail: ${email}\nPortfolio / GitHub: ${portfolioLink}\n\nWhat I build:\n${aboutYou}`
     );
     const mailtoUrl = `mailto:careers@humstack.in?subject=${subject}&body=${body}`;
 
@@ -315,18 +314,18 @@ export const CareersPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Section 4: Minimalist Application Form */}
-        <div id="apply-form" className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-cream-border shadow-soft-sm">
-            <div className="mb-8">
+        {/* Section 4: Simple Open Application for Not Found Jobs */}
+        <div id="apply-form" className="max-w-2xl mx-auto">
+          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-cream-border shadow-soft-sm">
+            <div className="mb-6">
               <span className="text-xs font-semibold uppercase tracking-wider text-coral block mb-1">
-                Fast Application
+                Open Track
               </span>
               <h2 className="text-2xl sm:text-3xl font-heading font-bold text-primary tracking-tight">
-                Tell us about what you build.
+                Don’t see your role?
               </h2>
               <p className="text-secondary text-sm mt-1">
-                No 4-page resumes or cover letter essays. We review real code, portfolios, and past shipped products.
+                If you are an exceptional engineer or designer, send us your work. We always make room for great talent.
               </p>
             </div>
 
@@ -334,16 +333,16 @@ export const CareersPage: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-10 text-center space-y-4"
+                className="py-8 text-center space-y-4"
               >
-                <div className="w-14 h-14 rounded-full bg-coral-bg text-coral mx-auto flex items-center justify-center">
-                  <Check className="w-7 h-7" />
+                <div className="w-12 h-12 rounded-full bg-coral-bg text-coral mx-auto flex items-center justify-center">
+                  <Check className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold text-primary">
-                  Application ready!
+                <h3 className="text-xl font-heading font-bold text-primary">
+                  Note prepared!
                 </h3>
-                <p className="text-secondary text-sm max-w-md mx-auto leading-relaxed">
-                  Thank you, <strong className="text-primary">{name}</strong>. Your application draft has been launched in your email client. We respond to every thoughtful applicant.
+                <p className="text-secondary text-sm max-w-sm mx-auto leading-relaxed">
+                  Thank you, <strong className="text-primary">{name}</strong>. Your email client has been launched with your details.
                 </p>
                 <div className="pt-2">
                   <button
@@ -351,49 +350,18 @@ export const CareersPage: React.FC = () => {
                       setIsSubmitted(false);
                       setAboutYou('');
                     }}
-                    className="px-6 py-2 rounded-full bg-cream text-charcoal hover:bg-cream-400 text-xs font-semibold transition-colors border border-cream-border"
+                    className="px-5 py-2 rounded-full bg-cream text-charcoal hover:bg-cream-400 text-xs font-semibold transition-colors border border-cream-border"
                   >
-                    Send another application
+                    Reset form
                   </button>
                 </div>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Role Pill Selector */}
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2">
-                    Applying For Track *
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      'Full-Stack TypeScript Engineer',
-                      'Systems & Cloud Engineer',
-                      'Product & UI/UX Designer',
-                      'Open / General Track'
-                    ].map((track) => {
-                      const isSelected = selectedRole === track;
-                      return (
-                        <button
-                          key={track}
-                          type="button"
-                          onClick={() => setSelectedRole(track)}
-                          className={`text-xs px-3.5 py-1.5 rounded-full border transition-all font-medium ${
-                            isSelected
-                              ? 'bg-charcoal text-white border-charcoal shadow-sm'
-                              : 'bg-cream/40 text-secondary border-cream-border hover:border-charcoal/30 hover:bg-cream'
-                          }`}
-                        >
-                          {track}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
+              <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Name & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
                       Your Name *
                     </label>
                     <input
@@ -402,12 +370,12 @@ export const CareersPage: React.FC = () => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Alex Sharma"
-                      className="w-full px-4 py-3 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
                       Email Address *
                     </label>
                     <input
@@ -416,38 +384,37 @@ export const CareersPage: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="alex@sharma.dev"
-                      className="w-full px-4 py-3 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
                     />
                   </div>
                 </div>
 
                 {/* GitHub / Portfolio / Live Link */}
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2">
-                    GitHub, Portfolio, or Best Live Link *
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
+                    GitHub / Portfolio / Best Work Link *
                   </label>
                   <input
                     type="url"
                     required
                     value={portfolioLink}
                     onChange={(e) => setPortfolioLink(e.target.value)}
-                    placeholder="https://github.com/yourhandle or https://yourwork.site"
-                    className="w-full px-4 py-3 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
+                    placeholder="https://github.com/yourhandle or portfolio"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
                   />
                 </div>
 
-                {/* What made you proud */}
+                {/* Short note */}
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2">
-                    What is something you built that you are genuinely proud of? *
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
+                    What kind of work do you want to build with us?
                   </label>
                   <textarea
-                    required
-                    rows={4}
+                    rows={3}
                     value={aboutYou}
                     onChange={(e) => setAboutYou(e.target.value)}
-                    placeholder="Describe a challenging bug you fixed, an architecture you redesigned, or an interactive interface you crafted..."
-                    className="w-full px-4 py-3 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40 resize-none"
+                    placeholder="Tell us briefly about your focus, favorite tools, or what you love building..."
+                    className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40 resize-none"
                   />
                 </div>
 
@@ -456,10 +423,10 @@ export const CareersPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-charcoal hover:bg-black text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg disabled:opacity-70 group"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-charcoal hover:bg-black text-white text-xs font-semibold tracking-wide transition-all shadow-md hover:shadow-lg disabled:opacity-70 group"
                   >
-                    <span>{isSubmitting ? 'Preparing...' : 'Submit Application'}</span>
-                    <ArrowRight className="w-4 h-4 text-coral transition-transform group-hover:translate-x-1" />
+                    <span>{isSubmitting ? 'Preparing...' : 'Send Details'}</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-coral transition-transform group-hover:translate-x-1" />
                   </button>
                 </div>
               </form>
