@@ -92,7 +92,6 @@ export const CareersPage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [portfolioLink, setPortfolioLink] = useState('');
-  const [aboutYou, setAboutYou] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -103,7 +102,7 @@ export const CareersPage: React.FC = () => {
   const handleApplyClick = (roleTitle: string) => {
     const subject = encodeURIComponent(`Application: ${roleTitle}`);
     const body = encodeURIComponent(
-      `Hi HumStack team,\n\nI'm applying for the ${roleTitle} role.\n\nName: \nGitHub / Portfolio: \nBrief note on why you'd be a great fit: \n`
+      `Hi HumStack team,\n\nI'm applying for the ${roleTitle} role.\n\nName: \nGitHub / Portfolio: \n`
     );
     window.location.href = `mailto:careers@humstack.in?subject=${subject}&body=${body}`;
   };
@@ -112,17 +111,10 @@ export const CareersPage: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const subject = encodeURIComponent(`Open Application / Craft Pitch: ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPortfolio / GitHub: ${portfolioLink}\n\nWhat I build:\n${aboutYou}`
-    );
-    const mailtoUrl = `mailto:careers@humstack.in?subject=${subject}&body=${body}`;
-
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-      window.location.href = mailtoUrl;
-    }, 600);
+    }, 400);
   };
 
   return (
@@ -314,9 +306,9 @@ export const CareersPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Section 4: Simple Open Application for Not Found Jobs */}
-        <div id="apply-form" className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-cream-border shadow-soft-sm">
+        {/* Section 4: Ultra-Simple Open Application for Unlisted Roles */}
+        <div id="apply-form" className="max-w-xl mx-auto">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-cream-border shadow-soft-sm">
             <div className="mb-6">
               <span className="text-xs font-semibold uppercase tracking-wider text-coral block mb-1">
                 Open Track
@@ -325,7 +317,7 @@ export const CareersPage: React.FC = () => {
                 Don’t see your role?
               </h2>
               <p className="text-secondary text-sm mt-1">
-                If you are an exceptional engineer or designer, send us your work. We always make room for great talent.
+                Drop your link below. We don’t need a cover letter—just show us what you've built.
               </p>
             </div>
 
@@ -333,36 +325,36 @@ export const CareersPage: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-8 text-center space-y-4"
+                className="py-6 text-center space-y-3"
               >
-                <div className="w-12 h-12 rounded-full bg-coral-bg text-coral mx-auto flex items-center justify-center">
-                  <Check className="w-6 h-6" />
+                <div className="w-10 h-10 rounded-full bg-coral-bg text-coral mx-auto flex items-center justify-center">
+                  <Check className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-heading font-bold text-primary">
-                  Note prepared!
+                <h3 className="text-lg font-heading font-bold text-primary">
+                  We got your details!
                 </h3>
                 <p className="text-secondary text-sm max-w-sm mx-auto leading-relaxed">
-                  Thank you, <strong className="text-primary">{name}</strong>. Your email client has been launched with your details.
+                  Thanks, <strong className="text-primary">{name || 'there'}</strong>. We review every portfolio and will get back to you at <strong className="text-primary">{email}</strong> if there’s a fit.
                 </p>
-                <div className="pt-2">
-                  <button
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setAboutYou('');
-                    }}
-                    className="px-5 py-2 rounded-full bg-cream text-charcoal hover:bg-cream-400 text-xs font-semibold transition-colors border border-cream-border"
-                  >
-                    Reset form
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setName('');
+                    setEmail('');
+                    setPortfolioLink('');
+                  }}
+                  className="text-xs text-secondary hover:text-coral transition-colors underline underline-offset-4 pt-1"
+                >
+                  Submit another link
+                </button>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Name & Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
-                      Your Name *
+                    <label className="block text-xs font-medium text-secondary mb-1">
+                      Your Name
                     </label>
                     <input
                       type="text"
@@ -370,64 +362,55 @@ export const CareersPage: React.FC = () => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Alex Sharma"
-                      className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
-                      Email Address *
+                    <label className="block text-xs font-medium text-secondary mb-1">
+                      Email
                     </label>
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="alex@sharma.dev"
-                      className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
+                      placeholder="alex@domain.com"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
                     />
                   </div>
                 </div>
 
-                {/* GitHub / Portfolio / Live Link */}
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
-                    GitHub / Portfolio / Best Work Link *
+                  <label className="block text-xs font-medium text-secondary mb-1">
+                    Link to your work
                   </label>
                   <input
                     type="url"
                     required
                     value={portfolioLink}
                     onChange={(e) => setPortfolioLink(e.target.value)}
-                    placeholder="https://github.com/yourhandle or portfolio"
-                    className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
+                    placeholder="https://github.com/yourhandle or portfolio URL"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
                   />
                 </div>
 
-                {/* Short note */}
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1.5">
-                    What kind of work do you want to build with us?
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={aboutYou}
-                    onChange={(e) => setAboutYou(e.target.value)}
-                    placeholder="Tell us briefly about your focus, favorite tools, or what you love building..."
-                    className="w-full px-4 py-2.5 rounded-2xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40 resize-none"
-                  />
-                </div>
-
-                {/* Submit button */}
-                <div className="pt-2">
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-charcoal hover:bg-black text-white text-xs font-semibold tracking-wide transition-all shadow-md hover:shadow-lg disabled:opacity-70 group"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-charcoal hover:bg-black text-white text-xs font-semibold tracking-wide transition-all shadow-sm hover:shadow group disabled:opacity-70"
                   >
-                    <span>{isSubmitting ? 'Preparing...' : 'Send Details'}</span>
+                    <span>{isSubmitting ? 'Sending...' : 'Send Link'}</span>
                     <ArrowRight className="w-3.5 h-3.5 text-coral transition-transform group-hover:translate-x-1" />
                   </button>
+
+                  <a
+                    href="mailto:careers@humstack.in"
+                    className="text-xs text-secondary hover:text-coral transition-colors text-center sm:text-right"
+                  >
+                    or write to <span className="font-mono text-primary font-medium">careers@humstack.in</span>
+                  </a>
                 </div>
               </form>
             )}
