@@ -9,7 +9,8 @@ import {
   Cpu,
   Compass,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Paperclip
 } from 'lucide-react';
 
 interface Role {
@@ -102,7 +103,7 @@ export const CareersPage: React.FC = () => {
   const handleApplyClick = (roleTitle: string) => {
     const subject = encodeURIComponent(`Application: ${roleTitle}`);
     const body = encodeURIComponent(
-      `Hi HumStack team,\n\nI'm applying for the ${roleTitle} role.\n\nName: \nGitHub / Portfolio: \n`
+      `Hi HumStack team,\n\nI'm applying for the ${roleTitle} role.\n\nName: \nGitHub / Portfolio: \n\n[Please attach your Resume / CV (PDF) to this email before sending]\n`
     );
     window.location.href = `mailto:humstackin@gmail.com?subject=${subject}&body=${body}`;
   };
@@ -113,7 +114,7 @@ export const CareersPage: React.FC = () => {
 
     const subject = encodeURIComponent(`Open Track Application: ${name}`);
     const body = encodeURIComponent(
-      `Hi HumStack team,\n\nI would love to explore opportunities with HumStack.\n\nName: ${name}\nEmail: ${email}\nPortfolio / Work Link: ${portfolioLink}\n`
+      `Hi HumStack team,\n\nI would love to explore opportunities with HumStack.\n\nName: ${name}\nEmail: ${email}\nPortfolio / Work Link: ${portfolioLink}\n\n[Attached: Resume / CV (PDF)]\n(Please attach your resume PDF to this email)\n`
     );
     window.location.href = `mailto:humstackin@gmail.com?subject=${subject}&body=${body}`;
 
@@ -340,9 +341,13 @@ export const CareersPage: React.FC = () => {
                   Email Draft Opened!
                 </h3>
                 <p className="text-secondary text-sm max-w-sm mx-auto leading-relaxed">
-                  Your mail app opened with your details prefilled for <strong className="text-primary font-mono">humstackin@gmail.com</strong>. Just press send in your email client!
+                  Your mail app opened addressed to <strong className="text-primary font-mono">humstackin@gmail.com</strong>.
+                  <br />
+                  <span className="inline-block mt-2 font-medium text-coral">
+                    📎 Remember to attach your Resume / CV (PDF) to the email before hitting send!
+                  </span>
                 </p>
-                <div className="pt-1">
+                <div className="pt-2">
                   <button
                     type="button"
                     onClick={() => {
@@ -401,6 +406,14 @@ export const CareersPage: React.FC = () => {
                     placeholder="https://github.com/yourhandle or portfolio URL"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-cream/40 border border-cream-border focus:border-coral focus:bg-white focus:outline-none text-sm text-primary transition-all placeholder:text-secondary/40"
                   />
+                </div>
+
+                {/* Resume Attachment Note */}
+                <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-cream/60 border border-cream-border text-xs text-secondary">
+                  <Paperclip className="w-4 h-4 text-coral flex-shrink-0" />
+                  <span>
+                    Attach your <strong>Resume / CV (PDF)</strong> in the email draft when your mail app opens.
+                  </span>
                 </div>
 
                 <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
