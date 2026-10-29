@@ -19,21 +19,12 @@ const SERVICE_OPTIONS = [
   'Brand Identity & Digital Growth'
 ];
 
-const BUDGET_OPTIONS = [
-  'Under $2.5k / ₹2L',
-  '$2.5k - $6k / ₹2L - ₹5L',
-  '$6k - $15k / ₹5L - ₹12L',
-  '$15k+ / ₹12L+',
-  'Flexible / Need Advice'
-];
-
 export const ProjectModal: React.FC<ProjectModalProps> = ({
   isOpen,
   onClose,
   initialService
 }) => {
   const [selectedService, setSelectedService] = useState<string>(initialService || 'Websites & E-commerce');
-  const [selectedBudget, setSelectedBudget] = useState<string>('Flexible / Need Advice');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -92,7 +83,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
   const mailtoLink = `mailto:hello@humstack.in?subject=${encodeURIComponent(
     `Project Inquiry: ${selectedService} - ${name || 'Founder'}`
   )}&body=${encodeURIComponent(
-    `Hi HumStack team,\n\nName: ${name}\nEmail: ${email}\nService: ${selectedService}\nBudget: ${selectedBudget}\n\nProject details:\n${message}\n`
+    `Hi HumStack team,\n\nName: ${name}\nEmail: ${email}\nService: ${selectedService}\n\nProject details:\n${message}\n`
   )}`;
 
   return (
@@ -164,29 +155,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                           }`}
                         >
                           {srv}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Budget Selection */}
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2">
-                      Estimated Project Scope / Budget
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {BUDGET_OPTIONS.map((b) => (
-                        <button
-                          key={b}
-                          type="button"
-                          onClick={() => setSelectedBudget(b)}
-                          className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
-                            selectedBudget === b
-                              ? 'bg-coral text-white border-coral font-medium'
-                              : 'bg-white/80 text-secondary border-cream-border hover:border-primary/40'
-                          }`}
-                        >
-                          {b}
                         </button>
                       ))}
                     </div>

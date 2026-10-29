@@ -24,19 +24,10 @@ const PROJECT_TYPES = [
   'Other / Scoping'
 ];
 
-const BUDGET_OPTIONS = [
-  '< $5,000',
-  '$5k – $15k',
-  '$15k – $30k',
-  '$30k+',
-  'Not sure yet'
-];
-
 export const ContactPage: React.FC<ContactPageProps> = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [selectedType, setSelectedType] = useState('Web & Mobile App');
-  const [selectedBudget, setSelectedBudget] = useState('$5k – $15k');
   const [message, setMessage] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -55,7 +46,7 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
     // Prepare mailto link as direct fallback
     const subject = encodeURIComponent(`Project Inquiry: ${name} (${selectedType})`);
     const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nProject Type: ${selectedType}\nBudget Range: ${selectedBudget}\n\nProject Details:\n${message}`
+      `Name: ${name}\nEmail: ${email}\nProject Type: ${selectedType}\n\nProject Details:\n${message}`
     );
     const mailtoUrl = `mailto:hello@humstack.in?subject=${subject}&body=${body}`;
 
@@ -186,33 +177,7 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
                   </div>
                 </div>
 
-                {/* 3. Budget Range Pills */}
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2.5">
-                    Estimated Budget Range
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {BUDGET_OPTIONS.map((opt) => {
-                      const isSelected = selectedBudget === opt;
-                      return (
-                        <button
-                          key={opt}
-                          type="button"
-                          onClick={() => setSelectedBudget(opt)}
-                          className={`text-xs px-3.5 py-2 rounded-full border transition-all font-medium ${
-                            isSelected
-                              ? 'bg-coral text-white border-coral shadow-sm'
-                              : 'bg-cream/40 text-secondary border-cream-border hover:border-coral/40 hover:bg-cream'
-                          }`}
-                        >
-                          {opt}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* 4. Message / Project Notes */}
+                {/* 3. Message / Project Notes */}
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-secondary mb-2">
                     Project Overview &amp; Goals *
