@@ -105,7 +105,7 @@ export const CareersPage: React.FC = () => {
     const body = encodeURIComponent(
       `Hi HumStack team,\n\nI'm applying for the ${roleTitle} role.\n\nName: \nGitHub / Portfolio: \n\n[Please attach your Resume / CV (PDF) to this email before sending]\n`
     );
-    window.location.href = `mailto:humstackin@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hello@humstack.in?subject=${subject}&body=${body}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -116,7 +116,7 @@ export const CareersPage: React.FC = () => {
     const body = encodeURIComponent(
       `Hi HumStack team,\n\nI would love to explore opportunities with HumStack.\n\nName: ${name}\nEmail: ${email}\nPortfolio / Work Link: ${portfolioLink}\n\n[Attached: Resume / CV (PDF)]\n(Please attach your resume PDF to this email)\n`
     );
-    window.location.href = `mailto:humstackin@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hello@humstack.in?subject=${subject}&body=${body}`;
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -341,7 +341,7 @@ export const CareersPage: React.FC = () => {
                   Email Draft Opened!
                 </h3>
                 <p className="text-secondary text-sm max-w-sm mx-auto leading-relaxed">
-                  Your mail app opened addressed to <strong className="text-primary font-mono">humstackin@gmail.com</strong>.
+                  Your mail app opened addressed to <strong className="text-primary font-mono">hello@humstack.in</strong>.
                   <br />
                   <span className="inline-block mt-2 font-medium text-coral">
                     📎 Remember to attach your Resume / CV (PDF) to the email before hitting send!
@@ -427,10 +427,10 @@ export const CareersPage: React.FC = () => {
                   </button>
 
                   <a
-                    href="mailto:humstackin@gmail.com"
+                    href="mailto:hello@humstack.in"
                     className="text-xs text-secondary hover:text-coral transition-colors text-center sm:text-right"
                   >
-                    or write directly to <span className="font-mono text-primary font-medium">humstackin@gmail.com</span>
+                    or write directly to <span className="font-mono text-primary font-medium">hello@humstack.in</span>
                   </a>
                 </div>
               </form>
