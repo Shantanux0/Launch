@@ -8,6 +8,8 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ServicesPage } from './pages/ServicesPage';
+import { ContactPage } from './pages/ContactPage';
+import { CareersPage } from './pages/CareersPage';
 
 export const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,6 +39,9 @@ export const App: React.FC = () => {
             <Route path="/" element={<HomePage onOpenProjectModal={handleOpenModal} />} />
             <Route path="/about" element={<AboutPage onOpenProjectModal={() => handleOpenModal()} />} />
             <Route path="/services" element={<ServicesPage onSelectService={(srv) => handleOpenModal(srv)} />} />
+            <Route path="/contact" element={<ContactPage onOpenProjectModal={() => handleOpenModal()} />} />
+            <Route path="/lets-talk" element={<ContactPage onOpenProjectModal={() => handleOpenModal()} />} />
+            <Route path="/careers" element={<CareersPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

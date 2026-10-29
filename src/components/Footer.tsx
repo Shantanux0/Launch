@@ -97,6 +97,22 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenProjectMo
               </li>
               <li>
                 <Link
+                  to="/careers"
+                  className="hover:text-white transition-colors inline-block"
+                >
+                  Careers &amp; Culture
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="hover:text-white transition-colors inline-block"
+                >
+                  Let's Talk
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/#faqs"
                   className="hover:text-white transition-colors inline-block"
                 >

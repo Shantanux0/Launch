@@ -5,17 +5,18 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 interface NavbarProps {
-  onOpenProjectModal: () => void;
+  onOpenProjectModal?: () => void;
 }
 
 const NAV_ITEMS = [
   { label: 'About', path: '/about', isRoute: true },
   { label: 'Services', path: '/services', isRoute: true },
+  { label: 'Careers', path: '/careers', isRoute: true },
   { label: 'Our Process', path: '/#process', isRoute: false },
   { label: 'FAQs', path: '/#faqs', isRoute: false },
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenProjectModal }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -119,13 +120,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenProjectModal }) => {
                 </picture>
               </div>
 
-              <button
-                onClick={onOpenProjectModal}
+              <Link
+                to="/contact"
                 className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-charcoal text-white hover:bg-black text-sm font-semibold tracking-wide transition-all duration-200 shadow-sm hover:shadow hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Let's Talk</span>
                 <ArrowUpRight className="w-4 h-4 text-coral transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
+              </Link>
             </div>
 
             {/* Mobile Hamburger & Mascot */}
@@ -192,16 +193,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenProjectModal }) => {
                 );
               })}
               <div className="pt-4 border-t border-cream-border">
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onOpenProjectModal();
-                  }}
+                <Link
+                  to="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-charcoal text-white hover:bg-black text-sm font-semibold shadow-md transition-all"
                 >
                   <span>Let's Talk</span>
                   <ArrowUpRight className="w-4 h-4 text-coral" />
-                </button>
+                </Link>
               </div>
             </div>
           </motion.div>
