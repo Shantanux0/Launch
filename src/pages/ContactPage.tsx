@@ -6,7 +6,6 @@ import {
   Check,
   Copy,
   ArrowRight,
-  Sparkles,
   ShieldCheck,
   MessageSquare
 } from 'lucide-react';
@@ -62,11 +61,6 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-400/80 border border-cream-border text-secondary text-xs font-semibold tracking-wider uppercase mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-coral" />
-            <span>Direct Studio Access</span>
-          </div>
-
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold text-primary tracking-tight leading-[1.05] mb-6">
             Let’s talk about
             <br />
