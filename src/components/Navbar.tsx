@@ -11,7 +11,6 @@ interface NavbarProps {
 const NAV_ITEMS = [
   { label: 'About', path: '/about', isRoute: true },
   { label: 'Services', path: '/services', isRoute: true },
-  { label: 'Careers', path: '/careers', isRoute: true },
   { label: 'Our Process', path: '/#process', isRoute: false },
   { label: 'FAQs', path: '/#faqs', isRoute: false },
 ];

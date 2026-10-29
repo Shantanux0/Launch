@@ -98,9 +98,12 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenProjectMo
               <li>
                 <Link
                   to="/careers"
-                  className="hover:text-white transition-colors inline-block"
+                  className="hover:text-white transition-colors inline-flex items-center gap-2 group"
                 >
-                  Careers &amp; Culture
+                  <span>Careers</span>
+                  <span className="px-2 py-0.5 text-[10px] font-mono bg-coral/20 text-coral border border-coral/30 rounded-full group-hover:bg-coral group-hover:text-white transition-colors">
+                    We're hiring
+                  </span>
                 </Link>
               </li>
               <li>
@@ -161,10 +164,12 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenProjectMo
 
         {/* Bottom Bar: Copyright & Back to Top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-300">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span>© {currentYear} HumStack.in. All rights reserved.</span>
             <span className="text-charcoal-border">•</span>
-            <span className="text-stone-300">Build. Launch. Grow.</span>
+            <Link to="/careers" className="hover:text-coral transition-colors font-medium">Careers</Link>
+            <span className="text-charcoal-border">•</span>
+            <Link to="/contact" className="hover:text-coral transition-colors font-medium">Contact</Link>
           </div>
 
           {/* Back to Top Button */}
