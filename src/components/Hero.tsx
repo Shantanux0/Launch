@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartProject }) => {
               You bring the idea.
               <br />
               <span className="relative inline-block mt-1">
-                We build what’s next.
+                We make it real.
                 {/* Sketch Underline Squiggle */}
                 <svg
                   className="absolute -bottom-3 left-0 w-full h-4 text-coral pointer-events-none"
