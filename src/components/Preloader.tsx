@@ -10,8 +10,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const totalDuration = 3000; // Exactly 3 seconds
-    const countDuration = 2800; // Reaches 100% at 2.8s, holds for 200ms
+    const totalDuration = 2000; // Exactly 2 seconds
+    const countDuration = 1850; // Reaches 100% at 1.85s, holds for 150ms
     const startTime = performance.now();
 
     const interval = setInterval(() => {
