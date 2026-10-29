@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Sketch style curved arrow curving downward and looping slightly -->
+  <path d="M20 25 C 65 15, 105 35, 95 85 C 92 98, 80 102, 72 95 C 66 90, 70 80, 80 82" />
+  <!-- Arrowhead at the tip -->
+  <path d="M88 65 L 97 86 L 75 88" />
+</svg>

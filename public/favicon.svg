@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 753 712" fill="none" width="100%" height="100%">
+  <!-- Red Semicircle / Dome -->
+  <path d="M 0 340 C 0 152 168 0 376.5 0 C 585 0 753 152 753 340 Z" fill="#D91C35" />
+  <!-- Three Black Pillars -->
+  <rect x="86" y="390" width="136" height="322" rx="10" fill="#111111" />
+  <rect x="311" y="390" width="136" height="322" rx="10" fill="#111111" />
+  <rect x="536" y="390" width="136" height="322" rx="10" fill="#111111" />
+</svg>

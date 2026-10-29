@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 44" fill="none" width="100%" height="100%">
+  <!-- Symbol -->
+  <g transform="translate(0, 2)">
+    <path d="M 4 18 A 17 17 0 0 1 38 18 Z" fill="#F34F79" />
+    <rect x="6" y="22" width="6.5" height="17" rx="1.2" fill="#FFFFFF" />
+    <rect x="17.75" y="22" width="6.5" height="17" rx="1.2" fill="#FFFFFF" />
+    <rect x="29.5" y="22" width="6.5" height="17" rx="1.2" fill="#FFFFFF" />
+  </g>
+  <!-- Wordmark -->
+  <text x="52" y="30" font-family="'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">Hum<tspan font-weight="600">Stack</tspan><tspan fill="#F34F79" font-weight="700">.in</tspan></text>
+</svg>

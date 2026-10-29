@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 42" fill="none" width="100%" height="100%">
+  <!-- Red Semicircle -->
+  <path d="M 4 19 A 18 18 0 0 1 40 19 Z" fill="#F34F79" />
+  <!-- Three Black Pillars -->
+  <rect x="6" y="23" width="7" height="18" rx="1.5" fill="#111111" />
+  <rect x="18.5" y="23" width="7" height="18" rx="1.5" fill="#111111" />
+  <rect x="31" y="23" width="7" height="18" rx="1.5" fill="#111111" />
+</svg>
