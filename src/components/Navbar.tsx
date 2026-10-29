@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 interface NavbarProps {
@@ -28,6 +28,21 @@ export const Navbar: React.FC<NavbarProps> = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const handleItemClick = (e: React.MouseEvent, item: typeof NAV_ITEMS[0]) => {
     setIsMobileMenuOpen(false);
@@ -136,73 +151,151 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 <img
                   src="/assets/illustrations/snail-transparent.gif"
                   alt="HumStack Snail Mascot"
-                  className="w-11 h-8 object-contain select-none"
-                  width={44}
-                  height={32}
+                  className="w-10 h-7 object-contain select-none"
+                  width={40}
+                  height={28}
                   loading="eager"
                 />
               </picture>
+
+              {/* Animated Morphing Hamburger Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-xl text-primary hover:bg-cream-400/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-coral"
+                className="relative w-10 h-10 flex flex-col items-center justify-center rounded-2xl bg-cream-400/40 hover:bg-cream-400/70 active:scale-95 transition-all text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-coral"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                <div className="w-5 h-4 flex flex-col justify-between">
+                  <motion.span
+                    animate={isMobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full h-[2.5px] bg-primary rounded-full origin-center"
+                  />
+                  <motion.span
+                    animate={isMobileMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
+                    className="w-full h-[2.5px] bg-primary rounded-full origin-center"
+                  />
+                  <motion.span
+                    animate={isMobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full h-[2.5px] bg-primary rounded-full origin-center"
+                  />
+                </div>
               </button>
             </div>
           </nav>
         </div>
-
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu & Backdrop */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[68px] z-30 md:hidden bg-cream border-b border-cream-border shadow-soft-lg px-6 py-6"
-          >
-            <div className="flex flex-col space-y-4">
-              {NAV_ITEMS.map((item) => {
-                const isActive = item.isRoute && location.pathname === item.path;
-                return item.isRoute ? (
+          <>
+            {/* Backdrop Blur Overlay */}
+            <motion.div
+              key="mobile-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 z-30 bg-charcoal/30 backdrop-blur-sm md:hidden"
+            />
+
+            {/* Floating Mobile Card Drawer */}
+            <motion.div
+              key="mobile-drawer"
+              initial={{ opacity: 0, y: -16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-x-4 top-[74px] z-40 md:hidden bg-cream-100/98 backdrop-blur-xl border border-cream-border rounded-3xl shadow-soft-lg p-5 overflow-hidden max-h-[calc(100vh-92px)] overflow-y-auto"
+            >
+              <div className="flex flex-col space-y-1">
+                {NAV_ITEMS.map((item, idx) => {
+                  const isActive = item.isRoute && location.pathname === item.path;
+                  return (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, x: -14 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.04 + idx * 0.04, duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      {item.isRoute ? (
+                        <Link
+                          to={item.path}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center justify-between px-4 py-3 rounded-2xl text-lg font-heading font-semibold transition-all ${
+                            isActive
+                              ? 'bg-white text-coral shadow-soft-sm'
+                              : 'text-primary hover:bg-white/60 hover:text-coral'
+                          }`}
+                        >
+                          <span>{item.label}</span>
+                          {isActive && <span className="w-2 h-2 rounded-full bg-coral" />}
+                        </Link>
+                      ) : (
+                        <a
+                          href={item.path}
+                          onClick={(e) => handleItemClick(e, item)}
+                          className="flex items-center justify-between px-4 py-3 rounded-2xl text-lg font-heading font-semibold text-primary hover:bg-white/60 hover:text-coral transition-all"
+                        >
+                          <span>{item.label}</span>
+                        </a>
+                      )}
+                    </motion.div>
+                  );
+                })}
+
+                {/* Careers Link in Mobile Menu */}
+                <motion.div
+                  initial={{ opacity: 0, x: -14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.04 + NAV_ITEMS.length * 0.04, duration: 0.25 }}
+                >
                   <Link
-                    key={item.label}
-                    to={item.path}
+                    to="/careers"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-lg font-heading font-semibold transition-colors py-1 ${
-                      isActive ? 'text-coral' : 'text-primary hover:text-coral'
+                    className={`flex items-center justify-between px-4 py-3 rounded-2xl text-lg font-heading font-semibold transition-all ${
+                      location.pathname === '/careers'
+                        ? 'bg-white text-coral shadow-soft-sm'
+                        : 'text-primary hover:bg-white/60 hover:text-coral'
                     }`}
                   >
-                    {item.label}
+                    <div className="flex items-center gap-2">
+                      <span>Careers</span>
+                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-coral-bg text-coral">
+                        Hiring
+                      </span>
+                    </div>
                   </Link>
-                ) : (
-                  <a
-                    key={item.label}
-                    href={item.path}
-                    onClick={(e) => handleItemClick(e, item)}
-                    className="text-lg font-heading font-semibold text-primary hover:text-coral transition-colors py-1"
-                  >
-                    {item.label}
-                  </a>
-                );
-              })}
-              <div className="pt-4 border-t border-cream-border">
-                <Link
-                  to="/contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-charcoal text-white hover:bg-black text-sm font-semibold shadow-md transition-all"
+                </motion.div>
+
+                {/* Let's Talk CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.24, duration: 0.25 }}
+                  className="pt-4 mt-2 border-t border-cream-border/70 space-y-3"
                 >
-                  <span>Let's Talk</span>
-                  <ArrowUpRight className="w-4 h-4 text-coral" />
-                </Link>
+                  <Link
+                    to="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-charcoal text-white hover:bg-black text-sm font-semibold shadow-md active:scale-[0.99] transition-all"
+                  >
+                    <span>Let's Talk</span>
+                    <ArrowUpRight className="w-4 h-4 text-coral" />
+                  </Link>
+
+                  <div className="pt-2 flex items-center justify-between text-xs text-secondary border-t border-cream-border/40 px-1">
+                    <span className="font-mono text-secondary/80">hello@humstack.in</span>
+                    <span className="text-secondary/60">Boutique Studio</span>
+                  </div>
+                </motion.div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
