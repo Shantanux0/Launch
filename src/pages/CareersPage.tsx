@@ -104,12 +104,18 @@ export const CareersPage: React.FC = () => {
     const body = encodeURIComponent(
       `Hi HumStack team,\n\nI'm applying for the ${roleTitle} role.\n\nName: \nGitHub / Portfolio: \n`
     );
-    window.location.href = `mailto:careers@humstack.in?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:humstackin@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const subject = encodeURIComponent(`Open Track Application: ${name}`);
+    const body = encodeURIComponent(
+      `Hi HumStack team,\n\nI would love to explore opportunities with HumStack.\n\nName: ${name}\nEmail: ${email}\nPortfolio / Work Link: ${portfolioLink}\n`
+    );
+    window.location.href = `mailto:humstackin@gmail.com?subject=${subject}&body=${body}`;
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -331,23 +337,25 @@ export const CareersPage: React.FC = () => {
                   <Check className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-heading font-bold text-primary">
-                  We got your details!
+                  Email Draft Opened!
                 </h3>
                 <p className="text-secondary text-sm max-w-sm mx-auto leading-relaxed">
-                  Thanks, <strong className="text-primary">{name || 'there'}</strong>. We review every portfolio and will get back to you at <strong className="text-primary">{email}</strong> if there’s a fit.
+                  Your mail app opened with your details prefilled for <strong className="text-primary font-mono">humstackin@gmail.com</strong>. Just press send in your email client!
                 </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSubmitted(false);
-                    setName('');
-                    setEmail('');
-                    setPortfolioLink('');
-                  }}
-                  className="text-xs text-secondary hover:text-coral transition-colors underline underline-offset-4 pt-1"
-                >
-                  Submit another link
-                </button>
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSubmitted(false);
+                      setName('');
+                      setEmail('');
+                      setPortfolioLink('');
+                    }}
+                    className="text-xs text-secondary hover:text-coral transition-colors underline underline-offset-4"
+                  >
+                    Send another application
+                  </button>
+                </div>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -401,15 +409,15 @@ export const CareersPage: React.FC = () => {
                     disabled={isSubmitting}
                     className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-charcoal hover:bg-black text-white text-xs font-semibold tracking-wide transition-all shadow-sm hover:shadow group disabled:opacity-70"
                   >
-                    <span>{isSubmitting ? 'Sending...' : 'Send Link'}</span>
+                    <span>{isSubmitting ? 'Opening Mail...' : 'Send Application'}</span>
                     <ArrowRight className="w-3.5 h-3.5 text-coral transition-transform group-hover:translate-x-1" />
                   </button>
 
                   <a
-                    href="mailto:careers@humstack.in"
+                    href="mailto:humstackin@gmail.com"
                     className="text-xs text-secondary hover:text-coral transition-colors text-center sm:text-right"
                   >
-                    or write to <span className="font-mono text-primary font-medium">careers@humstack.in</span>
+                    or write directly to <span className="font-mono text-primary font-medium">humstackin@gmail.com</span>
                   </a>
                 </div>
               </form>
