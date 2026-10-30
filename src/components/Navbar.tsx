@@ -63,10 +63,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled || isMobileMenuOpen
-            ? 'bg-cream/95 backdrop-blur-md py-3.5 border-b border-cream-border shadow-soft-sm'
-            : 'bg-cream py-4 sm:py-5 border-b border-transparent'
+            ? 'bg-white/95 backdrop-blur-md py-3 border-b border-gray-100 shadow-sm'
+            : 'bg-white/80 backdrop-blur-sm py-4 sm:py-5 border-b border-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,14 +74,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
             {/* Left: Brand Logo */}
             <Link
               to="/"
-              className="group focus:outline-none focus-visible:ring-2 focus-visible:ring-coral rounded-lg py-1"
+              className="group focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-lg py-1"
               aria-label="HumStack Home"
             >
               <BrandLogo variant="full" theme="light" size={32} />
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation Links — centered */}
+            <div className="hidden md:flex items-center gap-7">
               {NAV_ITEMS.map((item) => {
                 const isActive = item.isRoute && location.pathname === item.path;
                 return item.isRoute ? (
@@ -89,12 +89,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
                     key={item.label}
                     to={item.path}
                     className={`relative text-sm font-medium transition-colors py-1 group ${
-                      isActive ? 'text-coral font-semibold' : 'text-secondary hover:text-primary'
+                      isActive ? 'text-gray-900 font-semibold' : 'text-gray-500 hover:text-gray-900'
                     }`}
                   >
                     {item.label}
                     <span
-                      className={`absolute bottom-0 left-0 h-[2px] bg-coral transition-all duration-200 ${
+                      className={`absolute bottom-0 left-0 h-[2px] bg-gray-900 transition-all duration-200 ${
                         isActive ? 'w-full' : 'w-0 group-hover:w-full'
                       }`}
                     />
@@ -104,18 +104,18 @@ export const Navbar: React.FC<NavbarProps> = () => {
                     key={item.label}
                     href={item.path}
                     onClick={(e) => handleItemClick(e, item)}
-                    className="relative text-sm font-medium text-secondary hover:text-primary transition-colors py-1 group"
+                    className="relative text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors py-1 group"
                   >
                     {item.label}
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-coral transition-all duration-200 group-hover:w-full" />
+                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gray-900 transition-all duration-200 group-hover:w-full" />
                   </a>
                 );
               })}
             </div>
 
-            {/* Desktop Right: Snail Mascot Decoration & CTA Button */}
+            {/* Desktop Right: Snail + CTA */}
             <div className="hidden md:flex items-center gap-3">
-              {/* Snail Mascot decoration directly on the left side of Let's Talk */}
+              {/* Snail Mascot */}
               <div
                 className="relative flex items-center select-none cursor-pointer group"
                 title="Slow & steady builds what's next 🐌"
@@ -126,9 +126,9 @@ export const Navbar: React.FC<NavbarProps> = () => {
                   <img
                     src="/assets/illustrations/snail-transparent.gif"
                     alt="HumStack Snail Mascot"
-                    className="w-16 h-12 object-contain drop-shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:-translate-y-0.5"
-                    width={64}
-                    height={48}
+                    className="w-14 h-10 object-contain drop-shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:-translate-y-0.5"
+                    width={56}
+                    height={40}
                     loading="eager"
                   />
                 </picture>
@@ -136,14 +136,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
               <Link
                 to="/contact"
-                className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-charcoal text-white hover:bg-black text-sm font-semibold tracking-wide transition-all duration-200 shadow-sm hover:shadow hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gray-900 text-white hover:bg-black text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Let's Talk</span>
-                <ArrowUpRight className="w-4 h-4 text-coral transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
 
-            {/* Mobile Hamburger & Mascot */}
+            {/* Mobile: Snail + Hamburger */}
             <div className="flex md:hidden items-center gap-2">
               <picture>
                 <source srcSet="/assets/illustrations/snail-transparent.webp" type="image/webp" />
@@ -151,17 +151,16 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 <img
                   src="/assets/illustrations/snail-transparent.gif"
                   alt="HumStack Snail Mascot"
-                  className="w-10 h-7 object-contain select-none"
-                  width={40}
+                  className="w-9 h-7 object-contain select-none"
+                  width={36}
                   height={28}
                   loading="eager"
                 />
               </picture>
 
-              {/* High-Contrast Crisp Animated Hamburger Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="w-11 h-11 flex items-center justify-center rounded-2xl bg-white border border-cream-border text-primary shadow-soft-sm active:scale-95 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-coral"
+                className="w-11 h-11 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-800 shadow-sm active:scale-95 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
                 aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 aria-expanded={isMobileMenuOpen}
               >
@@ -174,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
                       exit={{ rotate: 90, opacity: 0 }}
                       transition={{ duration: 0.16 }}
                     >
-                      <X className="w-6 h-6 text-coral" strokeWidth={2.5} />
+                      <X className="w-5 h-5 text-gray-800" strokeWidth={2.5} />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -184,7 +183,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.16 }}
                     >
-                      <Menu className="w-6 h-6 text-primary" strokeWidth={2.5} />
+                      <Menu className="w-5 h-5 text-gray-800" strokeWidth={2.5} />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -194,7 +193,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
         </div>
       </header>
 
-      {/* Full-Height Mobile Drawer Menu */}
+      {/* Mobile Full-Screen Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -203,9 +202,9 @@ export const Navbar: React.FC<NavbarProps> = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-0 top-[62px] bottom-0 z-40 md:hidden bg-cream border-t border-cream-border/50 overflow-y-auto px-6 py-6 flex flex-col justify-between"
+            className="fixed inset-x-0 top-[62px] bottom-0 z-40 md:hidden bg-white border-t border-gray-100 overflow-y-auto px-6 py-6 flex flex-col justify-between"
           >
-            {/* Top Navigation Links */}
+            {/* Navigation Links */}
             <div className="flex flex-col space-y-1">
               {NAV_ITEMS.map((item, idx) => {
                 const isActive = item.isRoute && location.pathname === item.path;
@@ -220,20 +219,20 @@ export const Navbar: React.FC<NavbarProps> = () => {
                       <Link
                         to={item.path}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center justify-between py-3.5 px-3 rounded-2xl text-xl font-heading font-bold transition-all border-b border-cream-border/40 ${
+                        className={`flex items-center justify-between py-4 px-3 rounded-2xl text-xl font-heading font-bold transition-all border-b border-gray-100 ${
                           isActive
-                            ? 'text-coral bg-white/70 pl-4'
-                            : 'text-primary hover:text-coral hover:bg-white/40'
+                            ? 'text-gray-900 bg-gray-50'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
                         }`}
                       >
                         <span>{item.label}</span>
-                        {isActive && <span className="w-2.5 h-2.5 rounded-full bg-coral" />}
+                        {isActive && <span className="w-2 h-2 rounded-full bg-gray-900" />}
                       </Link>
                     ) : (
                       <a
                         href={item.path}
                         onClick={(e) => handleItemClick(e, item)}
-                        className="flex items-center justify-between py-3.5 px-3 rounded-2xl text-xl font-heading font-bold text-primary hover:text-coral hover:bg-white/40 transition-all border-b border-cream-border/40"
+                        className="flex items-center justify-between py-4 px-3 rounded-2xl text-xl font-heading font-bold text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-all border-b border-gray-100"
                       >
                         <span>{item.label}</span>
                       </a>
@@ -242,7 +241,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 );
               })}
 
-              {/* Careers Link in Mobile Menu */}
+              {/* Careers */}
               <motion.div
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -251,15 +250,15 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 <Link
                   to="/careers"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center justify-between py-3.5 px-3 rounded-2xl text-xl font-heading font-bold transition-all border-b border-cream-border/40 ${
+                  className={`flex items-center justify-between py-4 px-3 rounded-2xl text-xl font-heading font-bold transition-all border-b border-gray-100 ${
                     location.pathname === '/careers'
-                      ? 'text-coral bg-white/70 pl-4'
-                      : 'text-primary hover:text-coral hover:bg-white/40'
+                      ? 'text-gray-900 bg-gray-50'
+                      : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <span>Careers</span>
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-coral-bg text-coral">
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-200">
                       Hiring
                     </span>
                   </div>
@@ -267,25 +266,25 @@ export const Navbar: React.FC<NavbarProps> = () => {
               </motion.div>
             </div>
 
-            {/* Bottom Action Section */}
+            {/* Bottom CTA */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.22, duration: 0.22 }}
-              className="pt-6 mt-6 border-t border-cream-border space-y-4"
+              className="pt-6 mt-6 border-t border-gray-100 space-y-4"
             >
               <Link
                 to="/contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full bg-charcoal text-white hover:bg-black font-heading font-bold text-base shadow-md active:scale-[0.99] transition-all"
+                className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full bg-gray-900 text-white hover:bg-black font-heading font-bold text-base shadow-md active:scale-[0.99] transition-all"
               >
                 <span>Let's Talk</span>
-                <ArrowUpRight className="w-4 h-4 text-coral" />
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
 
-              <div className="flex items-center justify-between px-2 text-xs text-secondary">
-                <span className="font-mono text-secondary">hello@humstack.in</span>
-                <span className="text-secondary/70">Boutique Studio</span>
+              <div className="flex items-center justify-between px-2 text-xs text-gray-400">
+                <span className="font-mono">hello@humstack.in</span>
+                <span>Boutique Studio</span>
               </div>
             </motion.div>
           </motion.div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, Sparkles, Layers, Cpu, Globe, ShieldCheck } from 'lucide-react';
 
 interface ServiceShowcaseProps {
   onSelectService?: (serviceTitle: string) => void;
@@ -9,125 +9,178 @@ interface ServiceShowcaseProps {
 
 export const ServiceShowcase: React.FC<ServiceShowcaseProps> = () => {
   return (
-    <section id="services" className="pt-24 pb-16 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="mb-14 max-w-2xl">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cream-400/80 border border-cream-border text-secondary text-xs font-semibold tracking-wider uppercase mb-3">
-            Core Engineering &amp; Solutions
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-primary tracking-tight">
-            Services crafted for real-world growth.
-          </h2>
-        </div>
-
-        {/* Charcoal Showcase Panel with Overlapping Cream Feature Card */}
-        <div className="relative">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7 }}
-            className="bg-charcoal text-white rounded-3xl lg:rounded-[2.5rem] p-8 sm:p-12 lg:p-16 relative overflow-hidden border border-charcoal-border shadow-charcoal"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-              {/* Left Side: Statement & Collaborative Browser Illustration */}
-              <div className="lg:col-span-7 space-y-6">
-                <div>
-                  <span className="text-coral text-xs font-semibold tracking-wider uppercase block mb-2">
-                    Studio Ethos
-                  </span>
-                  <h3 className="text-2xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
-                    More than an idea.
-                    <br />
-                    <span className="text-stone-300">A product that works.</span>
-                  </h3>
-                </div>
-
-                <p className="text-stone-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-                  We bring architecture, code, and infrastructure together to help you move from concept to working software. Every system is built for longevity, scalability, and seamless user experiences.
-                </p>
-
-                {/* Hand-Drawn Browser Collaboration Illustration */}
-                <div className="relative pt-4 flex justify-center lg:justify-start">
-                  <motion.div
-                    animate={{ y: [-4, 4, -4] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                    className="relative"
-                  >
-                    <picture>
-                      <source srcSet="/assets/illustrations/collaboration-browser.webp" type="image/webp" />
-                      <img
-                        src="/assets/illustrations/collaboration-browser.png"
-                        alt="Collaborative browser window with team members"
-                        className="w-full max-w-md lg:max-w-lg h-auto object-contain drop-shadow-md select-none"
-                        width={500}
-                        height={333}
-                        loading="lazy"
-                      />
-                    </picture>
-
-                    {/* Subtle Circular Wave Ripple behind doodle */}
-                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-48 h-6 bg-coral/20 blur-xl rounded-full pointer-events-none" />
-                  </motion.div>
-                </div>
+    <section id="services" className="py-20 sm:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        
+        {/* PANEL 1: Light Lavender Section (Wix AI / Next-Gen Style) */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          className="rounded-[2.5rem] bg-[#EEF1FF] p-8 sm:p-14 lg:p-16 border border-[#DCE4FF] overflow-hidden relative"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* Left Content */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-indigo-700 text-xs font-semibold tracking-wider uppercase border border-indigo-100 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Next-Gen Engineering</span>
               </div>
 
-              {/* Right Side: Overlapping Feature Card (DULO Reference Inspiration) */}
-              <div className="lg:col-span-5 flex justify-center lg:justify-end">
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="bg-cream text-primary rounded-3xl p-8 sm:p-10 border border-cream-border shadow-soft-xl max-w-md w-full relative z-10"
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-gray-900 tracking-tight leading-[1.08]">
+                Smart systems.
+                <br />
+                Flawless execution.
+              </h2>
+
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-lg">
+                We combine modern frontend architecture, robust backend pipelines, and practical AI automation to turn your vision into high-performing digital reality.
+              </p>
+
+              <div className="pt-2 flex flex-wrap gap-4">
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gray-900 text-white hover:bg-black font-semibold text-sm transition-all duration-200 shadow-sm hover:shadow hover:-translate-y-0.5"
                 >
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cream-400 text-charcoal text-xs font-semibold tracking-wider uppercase mb-5 border border-cream-border">
-                    <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse" />
-                    <span>Approach</span>
-                  </div>
-
-                  <h4 className="text-2xl sm:text-3xl font-heading font-extrabold text-primary mb-4 tracking-tight leading-snug">
-                    Built around your business.
-                  </h4>
-
-                  <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
-                    Every project starts with your actual goals. We shape the right technical solution, select modern production-tested tools, and engineer for real-world reliability.
-                  </p>
-
-                  <div className="space-y-3 pt-1 pb-8 text-xs sm:text-sm font-medium text-primary">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-coral-bg text-coral flex items-center justify-center flex-shrink-0">
-                        <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                      </div>
-                      <span>Tailored tech stack, zero bloated frameworks</span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-coral-bg text-coral flex items-center justify-center flex-shrink-0">
-                        <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                      </div>
-                      <span>Clean modular codebases you completely own</span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-coral-bg text-coral flex items-center justify-center flex-shrink-0">
-                        <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                      </div>
-                      <span>Transparent weekly demos and progress logs</span>
-                    </div>
-                  </div>
-
-                  <Link
-                    to="/services"
-                    className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-charcoal text-white hover:bg-black font-semibold text-sm transition-all duration-200 hover:scale-[1.02] shadow-sm"
-                  >
-                    <span>Explore All Services</span>
-                    <ArrowRight className="w-4 h-4 text-coral transition-transform duration-200 group-hover:translate-x-1" />
-                  </Link>
-                </motion.div>
+                  <span>Explore Capabilities</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
-          </motion.div>
-        </div>
+
+            {/* Right Interactive Preview Card */}
+            <div className="lg:col-span-6">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-indigo-100/80 shadow-lg relative">
+                <div className="flex items-center justify-between pb-6 border-b border-gray-100">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                    <div className="w-3 h-3 rounded-full bg-green-400" />
+                  </div>
+                  <span className="text-xs font-mono text-gray-400">HumStack Engine v3.0</span>
+                </div>
+
+                <div className="py-6 space-y-4">
+                  <div className="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">
+                        AI
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-gray-900">Custom Workflows & Models</div>
+                        <div className="text-xs text-gray-500">Autonomous data extraction & agents</div>
+                      </div>
+                    </div>
+                    <span className="px-2.5 py-1 bg-white text-indigo-700 text-xs font-medium rounded-full border border-indigo-200">
+                      Active
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
+                        <Globe className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-gray-900">High-Speed Cloud Delivery</div>
+                        <div className="text-xs text-gray-500">Sub-100ms global latency caching</div>
+                      </div>
+                    </div>
+                    <span className="px-2.5 py-1 bg-white text-emerald-700 text-xs font-medium rounded-full border border-emerald-200">
+                      99.99%
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-100 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm">
+                        <ShieldCheck className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-gray-900">Enterprise Security & Auth</div>
+                        <div className="text-xs text-gray-500">End-to-end encryption & RBAC</div>
+                      </div>
+                    </div>
+                    <span className="px-2.5 py-1 bg-white text-purple-700 text-xs font-medium rounded-full border border-purple-200">
+                      Secured
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* PANEL 2: Deep Navy Section (Wix Dark Template Style) */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          className="rounded-[2.5rem] bg-[#0C1938] p-8 sm:p-14 lg:p-16 text-white overflow-hidden relative"
+        >
+          <div className="max-w-3xl mb-12">
+            <span className="text-indigo-400 text-xs font-semibold tracking-wider uppercase block mb-3">
+              Full-Stack Architecture
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
+              Engineered from the ground up for modern businesses.
+            </h2>
+            <p className="text-slate-300 text-base sm:text-lg mt-4 leading-relaxed">
+              Whether you need a bespoke SaaS platform, high-converting digital storefront, or automated internal back office — we build with precision and scale in mind.
+            </p>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="rounded-2xl bg-[#13234A] border border-[#1E356D] p-6 hover:border-indigo-400 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-5">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-white mb-2">Web & Cloud Platforms</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                  React, Next.js, and TypeScript frontends backed by serverless microservices and distributed databases.
+                </p>
+              </div>
+              <div className="text-xs font-mono text-indigo-300 pt-4 border-t border-white/10">
+                Next.js • React • Node • Postgres
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-[#13234A] border border-[#1E356D] p-6 hover:border-indigo-400 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-5">
+                  <Cpu className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-white mb-2">AI Systems & Agents</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                  Intelligent bots, automated document ingestion, and custom model integrations tailored to your pipeline.
+                </p>
+              </div>
+              <div className="text-xs font-mono text-indigo-300 pt-4 border-t border-white/10">
+                Python • LangChain • OpenAI • Fastify
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-[#13234A] border border-[#1E356D] p-6 hover:border-indigo-400 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-5">
+                  <Check className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-white mb-2">DevOps & Cloud Scale</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                  CI/CD automation, AWS/GCP architecture, security auditing, and continuous health telemetry.
+                </p>
+              </div>
+              <div className="text-xs font-mono text-indigo-300 pt-4 border-t border-white/10">
+                AWS • Docker • Terraform • Cloudflare
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

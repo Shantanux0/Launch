@@ -13,32 +13,28 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 
 export const CapabilitiesStrip: React.FC = () => {
   return (
-    <section className="relative z-20 -mt-6 sm:-mt-10 max-w-6xl mx-auto px-4 sm:px-6">
+    <section className="relative z-20 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6 }}
-        className="bg-charcoal text-white rounded-3xl border border-charcoal-border shadow-charcoal p-6 sm:p-10 relative overflow-hidden"
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="bg-white rounded-3xl border border-gray-200/80 shadow-sm p-6 sm:p-8"
       >
-        {/* Subtle decorative background pattern */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-coral/5 rounded-full filter blur-3xl pointer-events-none" />
-
-        {/* Capabilities Grid */}
-        <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {capabilitiesData.map((item, idx) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="group p-4 rounded-2xl bg-charcoal-dark border border-charcoal-surface hover:border-coral/50 transition-all duration-200 hover:-translate-y-1"
+              transition={{ duration: 0.3, delay: idx * 0.05 }}
+              className="group p-4 rounded-2xl bg-gray-50/80 hover:bg-indigo-50/50 border border-gray-100 hover:border-indigo-200 transition-all duration-200"
             >
-              <div className="w-9 h-9 rounded-xl bg-charcoal-surface text-coral flex items-center justify-center mb-3 group-hover:bg-coral group-hover:text-white transition-colors duration-200">
+              <div className="w-10 h-10 rounded-xl bg-white text-gray-900 group-hover:text-indigo-600 flex items-center justify-center mb-3 shadow-sm border border-gray-100 transition-colors">
                 {ICON_MAP[item.iconName]}
               </div>
-              <h3 className="text-sm font-semibold text-white tracking-tight group-hover:text-coral transition-colors">
+              <h3 className="text-sm font-bold text-gray-900 tracking-tight group-hover:text-indigo-600 transition-colors">
                 {item.title}
               </h3>
             </motion.div>
@@ -48,4 +44,3 @@ export const CapabilitiesStrip: React.FC = () => {
     </section>
   );
 };
-

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, X, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { faqsData } from '../data/faqs';
 
 export const FAQSection: React.FC = () => {
@@ -11,105 +12,79 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faqs" className="py-24 bg-charcoal text-white relative overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-coral/5 rounded-full filter blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Side: Accordion & Headings */}
-          <div className="lg:col-span-7">
-            <div className="mb-10">
-              <span className="text-coral text-xs font-semibold tracking-wider uppercase block mb-2">
-                Questions &amp; Answers
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight mb-4">
-                A few things you might be wondering.
-              </h2>
-              <p className="text-stone-300 text-sm sm:text-base leading-relaxed max-w-xl">
-                Clear, honest answers about our technical engagement model, project timelines, and how we collaborate.
+    <section id="faqs" className="py-20 sm:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Wix-Style Dark Banner Above FAQs (Matches Wix Frame 8) */}
+        <Link
+          to="/contact"
+          className="group block rounded-2xl bg-[#0C1938] p-6 sm:p-8 text-white hover:bg-[#13234A] transition-all duration-300 mb-20"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-heading font-bold text-white group-hover:text-indigo-200 transition-colors">
+                Get answers
+              </h3>
+              <p className="text-slate-300 text-sm sm:text-base mt-1">
+                Have technical requirements or custom questions? Speak directly with our lead engineer.
               </p>
             </div>
-
-            {/* Accordion List */}
-            <div className="space-y-3" role="tablist" aria-label="Frequently Asked Questions">
-              {faqsData.map((item, index) => {
-                const isOpen = openId === item.id;
-                const headingId = `faq-heading-${index}`;
-                const panelId = `faq-panel-${index}`;
-
-                return (
-                  <div
-                    key={item.id}
-                    className="rounded-2xl bg-charcoal-card border border-charcoal-border hover:border-charcoal-surface transition-colors overflow-hidden"
-                  >
-                    <h3>
-                      <button
-                        type="button"
-                        id={headingId}
-                        aria-expanded={isOpen}
-                        aria-controls={panelId}
-                        onClick={() => toggleFAQ(item.id)}
-                        className="w-full px-6 py-5 flex items-center justify-between gap-4 text-left font-heading font-semibold text-base sm:text-lg text-white hover:text-coral transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-coral"
-                      >
-                        <span className="leading-snug">{item.question}</span>
-                        <span
-                          className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
-                            isOpen ? 'bg-coral text-white rotate-180' : 'bg-charcoal-surface text-stone-300'
-                          }`}
-                        >
-                          {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-                        </span>
-                      </button>
-                    </h3>
-
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          id={panelId}
-                          role="region"
-                          aria-labelledby={headingId}
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: 'easeInOut' }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-stone-300 leading-relaxed border-t border-charcoal-border/50">
-                            {item.answer}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center self-end sm:self-auto group-hover:bg-white group-hover:text-gray-900 text-white transition-all">
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
+        </Link>
 
-          {/* Right Side: Hand-drawn Puzzled Character Illustration */}
-          <div className="lg:col-span-5 relative flex justify-center items-center pt-4 lg:pt-12">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full max-w-md"
-            >
-              <picture>
-                <source srcSet="/assets/illustrations/faq-puzzled.webp" type="image/webp" />
-                <img
-                  src="/assets/illustrations/faq-puzzled.png"
-                  alt="Sketched character contemplating ideas surrounded by doodle speech bubbles and question marks"
-                  className="w-full h-auto object-contain drop-shadow-md select-none"
-                  width={1536}
-                  height={1024}
-                  loading="lazy"
-                />
-              </picture>
-            </motion.div>
+        {/* Wix-Style Clean FAQ Section */}
+        <div className="max-w-4xl">
+          <h2 className="text-4xl sm:text-6xl font-heading font-extrabold text-gray-900 tracking-tight mb-8">
+            FAQs
+          </h2>
+
+          <div className="border-t border-gray-900 divide-y divide-gray-200">
+            {faqsData.map((item) => {
+              const isOpen = openId === item.id;
+
+              return (
+                <div key={item.id} className="py-6 sm:py-8">
+                  <button
+                    type="button"
+                    onClick={() => toggleFAQ(item.id)}
+                    className="w-full flex items-center justify-between gap-6 text-left focus:outline-none group"
+                  >
+                    <span className="text-lg sm:text-2xl font-heading font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                      {item.question}
+                    </span>
+                    <span className="w-8 h-8 flex items-center justify-center text-gray-900 flex-shrink-0">
+                      {isOpen ? (
+                        <X className="w-6 h-6 stroke-[1.5]" />
+                      ) : (
+                        <Plus className="w-6 h-6 stroke-[1.5]" />
+                      )}
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-4 text-base sm:text-lg text-gray-600 leading-relaxed max-w-3xl">
+                          {item.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </div>
         </div>
+
       </div>
     </section>
   );

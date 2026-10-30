@@ -1,186 +1,101 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUp, Mail, Check, Copy } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 interface FooterProps {
-  onSelectService: (serviceTitle: string) => void;
-  onOpenProjectModal: () => void;
+  onSelectService?: (serviceTitle: string) => void;
+  onOpenProjectModal?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenProjectModal }) => {
-  const [copied, setCopied] = useState(false);
+export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
   const currentYear = new Date().getFullYear();
 
-  const handleCopyEmail = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigator.clipboard.writeText('hello@humstack.in');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="bg-charcoal text-white border-t border-charcoal-border pt-16 pb-12 relative overflow-hidden">
+    <footer className="bg-white text-gray-900 border-t border-gray-200 pt-16 sm:pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-charcoal-border">
-          {/* Brand & Description (5 cols) */}
-          <div className="lg:col-span-5 space-y-5">
-            <Link
-              to="/"
-              onClick={scrollToTop}
-              className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-coral rounded-lg py-1"
-              aria-label="HumStack Home"
-            >
-              <BrandLogo variant="full" theme="dark" size={34} />
+        
+        {/* Wix-Style Multi-Column Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 sm:gap-10 pb-16 border-b border-gray-100">
+          
+          {/* Column 1: Capabilities */}
+          <div>
+            <h4 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Capabilities</h4>
+            <ul className="space-y-3 text-sm text-gray-600">
+              <li><Link to="/services" onClick={() => onSelectService?.('Websites & E-commerce')} className="hover:text-black transition-colors">Web Applications</Link></li>
+              <li><Link to="/services" onClick={() => onSelectService?.('Web & Mobile Applications')} className="hover:text-black transition-colors">Mobile Platforms</Link></li>
+              <li><Link to="/services" onClick={() => onSelectService?.('Backend & API Development')} className="hover:text-black transition-colors">Backend APIs</Link></li>
+              <li><Link to="/services" onClick={() => onSelectService?.('AI Integrations & Automation')} className="hover:text-black transition-colors">AI Engineering</Link></li>
+              <li><Link to="/services" onClick={() => onSelectService?.('Cloud & Deployment')} className="hover:text-black transition-colors">Cloud Architecture</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 2: Solutions */}
+          <div>
+            <h4 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Solutions</h4>
+            <ul className="space-y-3 text-sm text-gray-600">
+              <li><Link to="/services" className="hover:text-black transition-colors">Early-Stage MVPs</Link></li>
+              <li><Link to="/services" className="hover:text-black transition-colors">SaaS Scaling</Link></li>
+              <li><Link to="/services" className="hover:text-black transition-colors">Internal Tooling</Link></li>
+              <li><Link to="/services" className="hover:text-black transition-colors">Automated Workflows</Link></li>
+              <li><Link to="/services" className="hover:text-black transition-colors">Performance Audits</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Studio */}
+          <div>
+            <h4 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Studio</h4>
+            <ul className="space-y-3 text-sm text-gray-600">
+              <li><Link to="/about" className="hover:text-black transition-colors">About Us</Link></li>
+              <li><Link to="/#process" className="hover:text-black transition-colors">Methodology</Link></li>
+              <li><Link to="/careers" className="hover:text-black transition-colors flex items-center gap-1.5">
+                <span>Careers</span>
+                <span className="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-200">Hiring</span>
+              </Link></li>
+              <li><Link to="/#faqs" className="hover:text-black transition-colors">FAQs</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: Contact */}
+          <div>
+            <h4 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Contact</h4>
+            <ul className="space-y-3 text-sm text-gray-600">
+              <li><a href="mailto:hello@humstack.in" className="hover:text-black transition-colors font-mono">hello@humstack.in</a></li>
+              <li><Link to="/contact" className="hover:text-black transition-colors">Let's Talk</Link></li>
+              <li><Link to="/careers" className="hover:text-black transition-colors">Open Positions</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 5 & 6: Big Brand Right Column (Matches Wix Frame 9) */}
+          <div className="col-span-2 lg:pl-6 space-y-4">
+            <Link to="/" className="inline-block py-1">
+              <BrandLogo variant="full" theme="light" size={32} />
             </Link>
-
-            <p className="text-stone-300 text-sm leading-relaxed max-w-sm">
-              A technology and digital growth studio. We design, engineer, launch, and scale resilient web platforms, backend systems, and AI automation for founders and forward-thinking businesses.
+            <p className="text-sm text-gray-600 leading-relaxed max-w-sm">
+              HumStack is an engineering and digital product studio. We partner with founders and companies to design, build, and scale resilient software platforms with modern architecture.
             </p>
-
-            {/* Email Contact Card */}
-            <div className="pt-2">
-              <div className="inline-flex items-center gap-3 p-2.5 rounded-2xl bg-charcoal-dark border border-charcoal-border text-xs sm:text-sm">
-                <a
-                  href="mailto:hello@humstack.in"
-                  className="inline-flex items-center gap-2 text-white hover:text-coral transition-colors pl-1"
-                >
-                  <Mail className="w-4 h-4 text-coral" />
-                  <span className="font-mono">hello@humstack.in</span>
-                </a>
-                <button
-                  onClick={handleCopyEmail}
-                  className="p-1.5 rounded-lg bg-charcoal-surface hover:bg-charcoal-light text-stone-300 hover:text-white transition-colors"
-                  title="Copy email address"
-                  aria-label="Copy email address"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
-                </button>
-              </div>
+            <div className="pt-2 flex flex-col space-y-2 text-sm font-bold text-gray-900">
+              <Link to="/about" className="hover:underline">About Studio</Link>
+              <Link to="/contact" className="hover:underline">Contact Us</Link>
             </div>
           </div>
 
-          {/* Quick Navigation Links (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-coral">
-              Navigation
-            </h4>
-            <ul className="space-y-2.5 text-sm text-stone-300">
-              <li>
-                <Link
-                  to="/about"
-                  className="hover:text-white transition-colors inline-block"
-                >
-                  About Studio
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/services"
-                  className="hover:text-white transition-colors inline-block"
-                >
-                  Services &amp; Capabilities
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/#process"
-                  className="hover:text-white transition-colors inline-block"
-                >
-                  Our Process
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/careers"
-                  className="hover:text-white transition-colors inline-flex items-center gap-2 group"
-                >
-                  <span>Careers</span>
-                  <span className="px-2 py-0.5 text-[10px] font-mono bg-coral/20 text-coral border border-coral/30 rounded-full group-hover:bg-coral group-hover:text-white transition-colors">
-                    We're hiring
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="hover:text-white transition-colors inline-block"
-                >
-                  Let's Talk
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/#faqs"
-                  className="hover:text-white transition-colors inline-block"
-                >
-                  Frequently Asked Questions
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={onOpenProjectModal}
-                  className="text-coral hover:text-coral-light transition-colors font-semibold"
-                >
-                  Start a Project →
-                </button>
-              </li>
-            </ul>
+        </div>
+
+        {/* Bottom Bar (Matches Wix Frame 9) */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <div className="flex items-center gap-4">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">X</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">LinkedIn</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">GitHub</a>
           </div>
 
-          {/* Service Specializations (4 cols) */}
-          <div className="lg:col-span-4 space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-coral">
-              Specializations
-            </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-stone-300">
-              {[
-                'Websites & E-commerce',
-                'Web & Mobile Applications',
-                'Backend & API Development',
-                'AI Integrations & Automation',
-                'Cloud & Deployment',
-                'Maintenance & Technical Support',
-                'Brand Identity & Digital Growth'
-              ].map((srv) => (
-                <li key={srv}>
-                  <Link
-                    to="/services"
-                    onClick={() => onSelectService(srv)}
-                    className="hover:text-white transition-colors text-left inline-block"
-                  >
-                    {srv}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="flex items-center gap-6">
+            <Link to="/contact" className="hover:underline">Terms of Use</Link>
+            <Link to="/contact" className="hover:underline">Privacy Policy</Link>
+            <span>© 2024–{currentYear} HumStack.in</span>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Back to Top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-300">
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <span>© {currentYear} HumStack.in. All rights reserved.</span>
-            <span className="text-charcoal-border">•</span>
-            <Link to="/careers" className="hover:text-coral transition-colors font-medium">Careers</Link>
-            <span className="text-charcoal-border">•</span>
-            <Link to="/contact" className="hover:text-coral transition-colors font-medium">Contact</Link>
-          </div>
-
-          {/* Back to Top Button */}
-          <button
-            onClick={scrollToTop}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-charcoal-dark border border-charcoal-border hover:border-coral/50 text-stone-300 hover:text-white transition-all text-xs"
-          >
-            <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5 text-coral transition-transform duration-200 group-hover:-translate-y-0.5" />
-          </button>
-        </div>
       </div>
     </footer>
   );

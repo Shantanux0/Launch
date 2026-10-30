@@ -41,7 +41,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
             y: -20,
             transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
           }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream select-none px-4"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white select-none px-4"
         >
           {/* Snail Mascot Centered */}
           <div className="relative w-48 sm:w-60 md:w-72 aspect-[4/3] flex items-center justify-center">

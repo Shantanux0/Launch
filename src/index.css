@@ -8,7 +8,7 @@
   }
 
   body {
-    background-color: #FFF0DF;
+    background-color: #ffffff;
     color: #111111;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     text-rendering: optimizeLegibility;
@@ -27,14 +27,14 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FFF0DF;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D8CBBF;
+  background: #d1d5db;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B0A294;
+  background: #9ca3af;
 }
 
 /* Selection highlight */
