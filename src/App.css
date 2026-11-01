@@ -1,0 +1,62 @@
+html { scroll-behavior: smooth; }
+body { font-family: "Urbanist", sans-serif; background: #fff; }
+::selection { background: #FAE100; color: #232323; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* nav underline (reference: scale-x line on hover) */
+.nav-line { opacity: 0; transform: scaleX(0); transition: transform 300ms ease-out, opacity 300ms ease-out; }
+.nav-item:hover .nav-line { opacity: 1; transform: scaleX(1); }
+
+/* ───── Snail mascot motion ───── */
+.snail-animated .snail-body { transform-box: fill-box; transform-origin: 50% 100%; animation: snail-squash 3.2s ease-in-out infinite; }
+.snail-animated .snail-shell { transform-box: fill-box; transform-origin: 50% 90%; animation: snail-shell 3.2s ease-in-out infinite; }
+.snail-animated .snail-stalk { transform-box: fill-box; transform-origin: 50% 100%; }
+.snail-animated .snail-stalk-l { animation: stalk-l 4.2s ease-in-out infinite; }
+.snail-animated .snail-stalk-r { animation: stalk-r 4.6s ease-in-out infinite; }
+.snail-animated .snail-eye { transform-box: fill-box; transform-origin: center; animation: snail-blink 5.5s infinite; }
+.snail-animated .snail-pupil { animation: snail-look 7s ease-in-out infinite; }
+.snail-trail { stroke-dasharray: 260; animation: snail-trail 4s ease-in-out infinite; }
+
+@keyframes snail-squash { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.025, 0.975); } }
+@keyframes snail-shell { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-1.6deg); } }
+@keyframes stalk-l { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-5deg); } }
+@keyframes stalk-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+@keyframes snail-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.08); } }
+@keyframes snail-look { 0%, 40%, 100% { transform: translate(0, 0); } 50%, 70% { transform: translate(-6px, 1px); } 80% { transform: translate(2px, -2px); } }
+@keyframes snail-trail { 0% { stroke-dashoffset: 260; opacity: 0; } 30% { opacity: 1; } 70% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+
+/* hover response: snail perks up */
+.snail-hover { transition: transform 400ms cubic-bezier(.34,1.56,.64,1); }
+.snail-hover:hover { transform: translateY(-6px) scale(1.03); }
+
+/* ───── Decorations ───── */
+.tree-sway-1 { animation: tree-sway-1 2s ease-in-out infinite alternate; }
+.tree-sway-2 { animation: tree-sway-2 2.4s ease-in-out infinite alternate; }
+@keyframes tree-sway-1 { from { transform: rotate(0deg); } to { transform: rotate(-3deg); } }
+@keyframes tree-sway-2 { from { transform: rotate(0deg); } to { transform: rotate(-4deg); } }
+
+.leaf-drift { animation: leaf-drift 15s ease-in-out infinite; }
+@keyframes leaf-drift { 0% { transform: translate(130px, 100px); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(-300px, -60px) rotate(-40deg); opacity: 0; } }
+
+.float-soft { animation: float-soft 3.4s ease-in-out infinite; }
+@keyframes float-soft { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+.snail-mark-wiggle { transition: transform 500ms cubic-bezier(.34,1.56,.64,1); }
+.snail-mark-wiggle:hover { transform: rotate(-12deg) scale(1.06); }
+
+.footer-snail-walk { animation: footer-walk 26s linear infinite alternate; }
+@keyframes footer-walk { from { left: 30%; } to { left: 60%; } }
+
+/* CTA "surprise" on hover (reference: scale-in burst + handwritten message) */
+.cta-contact .cta-snail { transform: scale(0) translateY(20px); transform-origin: 80% 100%; transition: transform 600ms cubic-bezier(.34,1.56,.64,1); z-index: -1; }
+.cta-contact:hover .cta-snail, .cta-contact:focus-visible .cta-snail { transform: scale(1) translateY(0); }
+.cta-contact .cta-message { opacity: 0; transform: translate(-50%, -8px); transition: opacity 400ms ease-out, transform 400ms ease-out; }
+.cta-contact:hover .cta-message { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
