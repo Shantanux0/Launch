@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent }
 import { NatureLandscape } from "./NatureLandscape";
 import { SnailMascot } from "./SnailMascot";
 import { STATS, SOLUTIONS } from "../../data/content";
-import { PillButton, SectionHeading, scrollToTarget, ArrowRight } from "./shared";
+import { PillButton, SectionHeading, scrollToTarget } from "./shared";
 
 const HERO_BG = "radial-gradient(67.36% 168.45% at 50% 5.82%, #f2f2f2 23.51%, #fffefc 100%)";
 
@@ -160,19 +160,10 @@ export const HeroSection = ({ onContact }) => {
           style={{ opacity: heroOpacity, pointerEvents: solutionsOn ? "none" : "auto" }}
         >
           <HeroCopy />
-          <div className="mt-6 md:mt-8 flex flex-wrap items-center gap-3 sm:gap-4 justify-center md:justify-start">
+          <div className="mt-6 md:mt-8 flex justify-center md:justify-start">
             <PillButton onClick={() => scrollToTarget("solutions")} testId="see-our-work-btn">
               See Our Services
             </PillButton>
-            <button
-              type="button"
-              onClick={onContact}
-              className="inline-flex items-center gap-2 rounded-full border border-ly-black text-ly-black font-gilroy font-medium text-base md:text-lg px-6 md:px-7 py-3 md:py-[13px] hover:bg-ly-yellow hover:border-ly-yellow transition-all duration-300 shadow-xs cursor-pointer active:scale-95"
-              data-testid="hero-contact-us-btn"
-            >
-              <span>Contact Us</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
           </div>
         </motion.div>
 
