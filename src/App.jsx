@@ -77,6 +77,7 @@ const TopRouteProgressBar = ({ currentPath }) => {
 };
 
 function App() {
+  const [contactOpen, setContactOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(getAppPath);
 
   const navigateTo = (newPath) => {
