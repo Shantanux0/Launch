@@ -28,7 +28,7 @@ export const scrollToTarget = (target, onContact) => {
     target === "about" ? "culture" :
     target;
 
-  if (norm === "contact" || norm === "/talk") {
+  if (norm === "contact" || norm === "/contact" || norm === "talk" || norm === "/talk" || norm === "lets-talk") {
     if (window.location.pathname !== "/talk") {
       window.history.pushState({}, "", "/talk");
       window.dispatchEvent(new Event("popstate"));

@@ -39,6 +39,7 @@ export const TalkPage = ({ onContact }) => {
   });
   const [busy, setBusy] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [mailtoUrl, setMailtoUrl] = useState("");
 
   const toggleService = (title) => {
     setSelectedServices((prev) =>
@@ -49,22 +50,57 @@ export const TalkPage = ({ onContact }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setBusy(true);
-    try {
-      if (BACKEND_URL) {
+
+    const recipient = "hello@humstack.in";
+    const subject = `Project Inquiry from ${form.name.trim()} - HumStack`;
+    const servicesText = selectedServices.length > 0 ? selectedServices.join(", ") : "Not specified";
+    const body = `Hello HumStack Team,
+
+Here are my project inquiry details:
+
+• Name: ${form.name.trim()}
+• Email: ${form.email.trim()}
+${form.phone.trim() ? `• Phone: ${form.phone.trim()}\n` : ""}• Services Interested In: ${servicesText}
+• Project Stage: ${stage}
+
+• Project Summary & Goals:
+${form.message.trim()}
+
+--------------------------------------------------
+Sent via HumStack.in project inquiry form`;
+
+    const generatedMailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setMailtoUrl(generatedMailto);
+
+    // Optional background log if backend is running:
+    if (BACKEND_URL) {
+      try {
         await axios.post(`${API}/contact`, {
           ...form,
           services: selectedServices,
           stage,
           budget,
         });
+      } catch (err) {
+        console.warn("Backend logging skipped:", err);
       }
-      setSubmitted(true);
-      toast.success("Thank you! Your message has landed in our studio inbox.");
-    } catch {
-      toast.error("Couldn't send that right now. Please try again or email us directly at hello@humstack.in.");
-    } finally {
-      setBusy(false);
     }
+
+    // Trigger email client to open pre-filled draft:
+    try {
+      const a = document.createElement("a");
+      a.href = generatedMailto;
+      a.target = "_self";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch {
+      window.location.href = generatedMailto;
+    }
+
+    setSubmitted(true);
+    setBusy(false);
+    toast.success("Email client opened! Please click 'Send' in your mail app to finish submitting.");
   };
 
   return (
@@ -89,28 +125,54 @@ export const TalkPage = ({ onContact }) => {
             {/* Left Column: Comprehensive Inquiry Form */}
             <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-200/80 shadow-md">
               {submitted ? (
-                <div className="py-12 flex flex-col items-center text-center">
+                <div className="py-10 flex flex-col items-center text-center">
                   <div className="w-20 h-20 rounded-full bg-ly-yellow/30 flex items-center justify-center mb-6">
-                    <CheckCircle2 className="w-10 h-10 text-ly-black" />
+                    <Mail className="w-10 h-10 text-ly-black" />
                   </div>
                   <h3 className="font-gilroy font-bold text-3xl sm:text-4xl text-ly-black mb-3">
-                    Message Received!
+                    Your Email Draft Is Ready!
                   </h3>
-                  <p className="font-inter text-ly-gray text-base sm:text-lg max-w-md leading-relaxed mb-6">
-                    Our team is reviewing your project details. You'll receive a personal reply in your inbox within 24 hours.
+                  <p className="font-inter text-ly-gray text-base sm:text-lg max-w-lg leading-relaxed mb-5">
+                    We've opened your default email app with your project details pre-filled and addressed to{" "}
+                    <span className="font-semibold text-ly-black underline decoration-ly-yellow underline-offset-4">
+                      hello@humstack.in
+                    </span>.
                   </p>
+
+                  <div className="w-full max-w-lg bg-amber-50 border border-amber-200/90 rounded-2xl p-5 text-left mb-6">
+                    <p className="font-gilroy font-semibold text-sm sm:text-base text-amber-950 mb-1">
+                      ✉️ Final Step: Click Send in your Email App
+                    </p>
+                    <p className="font-inter text-xs sm:text-sm text-amber-800 leading-relaxed">
+                      Please check your open email client (Gmail, Apple Mail, Outlook, etc.) and hit <strong>Send</strong> to deliver your message to our studio.
+                    </p>
+                  </div>
+
                   <p className="font-pen text-2xl text-ly-black mb-8">
                     "Slow, steady, and crafted with care." 🐌✨
                   </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setForm({ name: "", email: "", phone: "", message: "" });
-                    }}
-                    className="font-gilroy font-medium text-sm rounded-full border border-ly-black px-6 py-2.5 hover:bg-ly-yellow transition-colors"
-                  >
-                    Submit Another Inquiry
-                  </button>
+
+                  <div className="flex flex-wrap items-center justify-center gap-3.5">
+                    {mailtoUrl && (
+                      <a
+                        href={mailtoUrl}
+                        className="inline-flex items-center gap-2 font-gilroy font-semibold text-sm sm:text-base rounded-full bg-ly-black text-white px-7 py-3 hover:bg-black transition-colors shadow-sm"
+                      >
+                        <span>Open Email App Again</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    )}
+                    <button
+                      onClick={() => {
+                        setSubmitted(false);
+                        setForm({ name: "", email: "", phone: "", message: "" });
+                        setMailtoUrl("");
+                      }}
+                      className="font-gilroy font-medium text-sm sm:text-base rounded-full border border-ly-black px-6 py-3 hover:bg-ly-yellow transition-colors cursor-pointer"
+                    >
+                      Edit / Submit Another
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-8">
@@ -227,12 +289,12 @@ export const TalkPage = ({ onContact }) => {
                       disabled={busy}
                       className="w-full group inline-flex items-center justify-center gap-3 bg-ly-black hover:bg-black text-white font-gilroy font-medium text-base sm:text-lg py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 cursor-pointer"
                     >
-                      <span>{busy ? "Sending Message..." : "Send Your Project Message"}</span>
+                      <span>{busy ? "Opening Your Email..." : "Send Message (Opens Your Email)"}</span>
                       <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                     </button>
                     <p className="font-inter text-xs text-ly-gray text-center mt-3 flex items-center justify-center gap-1.5">
                       <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                      We respect your privacy. No pushy sales calls, strictly NDA-friendly.
+                      Pre-fills your email to hello@humstack.in for you to review and manually send.
                     </p>
                   </div>
                 </form>

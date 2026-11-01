@@ -20,15 +20,38 @@ export const ContactDialog = ({ open, onOpenChange }) => {
   const submit = async (e) => {
     e.preventDefault();
     setBusy(true);
+
+    const recipient = "hello@humstack.in";
+    const subject = `Message from ${form.name.trim()} - HumStack`;
+    const body = `Hello HumStack Team,
+
+• Name: ${form.name.trim()}
+• Email: ${form.email.trim()}
+
+• Message:
+${form.message.trim()}
+
+--------------------------------------------------
+Sent via HumStack.in contact form`;
+
+    const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
     try {
       if (BACKEND_URL) {
-        await axios.post(`${API}/contact`, form);
+        axios.post(`${API}/contact`, form).catch(() => {});
       }
+      const a = document.createElement("a");
+      a.href = mailto;
+      a.target = "_self";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
       setSent(true);
       setForm(EMPTY);
-      toast.success("Message sent! We'll get back to you soon.");
+      toast.success("Email client opened! Please click 'Send' in your mail app.");
     } catch {
-      toast.error("Couldn't send that. Please check your details and retry.");
+      window.location.href = mailto;
     } finally {
       setBusy(false);
     }

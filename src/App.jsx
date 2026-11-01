@@ -90,7 +90,9 @@ const TopRouteProgressBar = ({ currentPath }) => {
 
 function App() {
   const [contactOpen, setContactOpen] = useState(false);
-  const openContact = () => setContactOpen(true);
+  const openContact = () => {
+    scrollToTarget("/talk");
+  };
   const currentPath = useCurrentPath();
 
   // Handle direct scroll targets or instant scroll to top:
