@@ -300,8 +300,7 @@ export const CareersPage = ({ onContact }) => {
     setBusy(true);
 
     const roleTitle = applyingRole?.title || "General Application";
-    const recipient = "careers@humstack.in";
-    const cc = "hello@humstack.in";
+    const recipient = "hello@humstack.in";
     const subject = `Job Application: ${roleTitle} - ${applicant.name.trim()}`;
     const cvNotice = applicant.cvFile
       ? `• Attached Resume/CV: ${applicant.cvFile.name} (Please see attached PDF)`
@@ -325,7 +324,7 @@ ${applicant.note.trim() || "Excited to contribute to thoughtful technology at Hu
 [Note: Please ensure your Resume/CV PDF is attached to this email before clicking Send!]
 Sent via HumStack.in Careers portal`;
 
-    const url = `mailto:${recipient}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const url = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setMailtoUrl(url);
 
     // Trigger user's mail client:
@@ -643,7 +642,7 @@ Sent via HumStack.in Careers portal`;
                     Application Email Drafted!
                   </h3>
                   <p className="font-inter text-ly-gray text-sm sm:text-base max-w-sm leading-relaxed mb-4">
-                    Your email app has opened with your application for <strong className="text-ly-black">{submittedRole?.title}</strong> addressed to <span className="font-semibold text-ly-black">careers@humstack.in</span>.
+                    Your email app has opened with your application for <strong className="text-ly-black">{submittedRole?.title}</strong> addressed to <span className="font-semibold text-ly-black">hello@humstack.in</span>.
                   </p>
 
                   <div className="w-full bg-amber-50 border border-amber-200/90 rounded-2xl p-4 text-left mb-6">
@@ -785,7 +784,7 @@ Sent via HumStack.in Careers portal`;
                       </button>
                       <p className="font-inter text-[11px] text-ly-gray text-center mt-2.5 flex items-center justify-center gap-1">
                         <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                        Pre-fills an email to careers@humstack.in — attach your CV PDF before sending.
+                        Pre-fills an email to hello@humstack.in — attach your CV PDF before sending.
                       </p>
                     </div>
                   </form>
