@@ -14,7 +14,10 @@ import {
   ChevronDown,
   ChevronUp,
   Send,
-  X
+  X,
+  Mail,
+  Paperclip,
+  ShieldCheck
 } from "lucide-react";
 import { SnailMark } from "../components/site/SnailLogo";
 import { SnailMascot } from "../components/site/SnailMascot";
@@ -278,23 +281,69 @@ export const CareersPage = ({ onContact }) => {
   const [selectedRole, setSelectedRole] = useState(null);
   const [applyModalOpen, setApplyModalOpen] = useState(false);
   const [applyingRole, setApplyingRole] = useState(null);
-  const [applicant, setApplicant] = useState({ name: "", email: "", portfolio: "", note: "" });
+  const [applicant, setApplicant] = useState({ name: "", email: "", portfolio: "", note: "", cvFile: null });
   const [busy, setBusy] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedRole, setSubmittedRole] = useState(null);
+  const [mailtoUrl, setMailtoUrl] = useState("");
 
   const openApply = (role) => {
     setApplyingRole(role);
+    setSubmitted(false);
+    setSubmittedRole(null);
+    setMailtoUrl("");
     setApplyModalOpen(true);
   };
 
   const handleApplySubmit = (e) => {
     e.preventDefault();
     setBusy(true);
-    setTimeout(() => {
-      setBusy(false);
-      setApplyModalOpen(false);
-      setApplicant({ name: "", email: "", portfolio: "", note: "" });
-      toast.success("Application received! We'll review your work and follow up soon.");
-    }, 1000);
+
+    const roleTitle = applyingRole?.title || "General Application";
+    const recipient = "careers@humstack.in";
+    const cc = "hello@humstack.in";
+    const subject = `Job Application: ${roleTitle} - ${applicant.name.trim()}`;
+    const cvNotice = applicant.cvFile
+      ? `• Attached Resume/CV: ${applicant.cvFile.name} (Please see attached PDF)`
+      : `• Resume/CV: [Attached PDF file]`;
+
+    const body = `Hello HumStack Hiring Team,
+
+I would like to apply for the ${roleTitle} position at HumStack.
+
+Here are my application details:
+
+• Full Name: ${applicant.name.trim()}
+• Email: ${applicant.email.trim()}
+• Portfolio / GitHub / LinkedIn: ${applicant.portfolio.trim()}
+${cvNotice}
+
+• Why HumStack?
+${applicant.note.trim() || "Excited to contribute to thoughtful technology at HumStack."}
+
+--------------------------------------------------
+[Note: Please ensure your Resume/CV PDF is attached to this email before clicking Send!]
+Sent via HumStack.in Careers portal`;
+
+    const url = `mailto:${recipient}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setMailtoUrl(url);
+
+    // Trigger user's mail client:
+    try {
+      const a = document.createElement("a");
+      a.href = url;
+      a.target = "_self";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch {
+      window.location.href = url;
+    }
+
+    setSubmittedRole(applyingRole);
+    setSubmitted(true);
+    setBusy(false);
+    toast.success("Email client opened! Please attach your CV PDF and click Send.");
   };
 
   return (
@@ -585,74 +634,163 @@ export const CareersPage = ({ onContact }) => {
                 <X className="w-4 h-4" />
               </button>
 
-              <div className="mb-5">
-                <span className="font-gilroy font-bold text-xs uppercase tracking-wider text-ly-gray block">
-                  Application
-                </span>
-                <h3 className="font-gilroy font-semibold text-2xl text-ly-black mt-1">
-                  {applyingRole?.title}
-                </h3>
-              </div>
+              {submitted ? (
+                <div className="py-6 flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-full bg-ly-yellow/30 flex items-center justify-center mb-4">
+                    <Mail className="w-8 h-8 text-ly-black" />
+                  </div>
+                  <h3 className="font-gilroy font-bold text-2xl sm:text-3xl text-ly-black mb-2">
+                    Application Email Drafted!
+                  </h3>
+                  <p className="font-inter text-ly-gray text-sm sm:text-base max-w-sm leading-relaxed mb-4">
+                    Your email app has opened with your application for <strong className="text-ly-black">{submittedRole?.title}</strong> addressed to <span className="font-semibold text-ly-black">careers@humstack.in</span>.
+                  </p>
 
-              <form onSubmit={handleApplySubmit} className="flex flex-col gap-4">
-                <div>
-                  <span className="font-inter text-xs text-ly-gray block mb-1">Your Full Name *</span>
-                  <input
-                    type="text"
-                    required
-                    value={applicant.name}
-                    onChange={(e) => setApplicant({ ...applicant, name: e.target.value })}
-                    placeholder="Alex Morgan"
-                    className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
-                  />
-                </div>
+                  <div className="w-full bg-amber-50 border border-amber-200/90 rounded-2xl p-4 text-left mb-6">
+                    <p className="font-gilroy font-semibold text-sm text-amber-950 mb-1 flex items-center gap-1.5">
+                      <Paperclip className="w-4 h-4 text-amber-700" />
+                      <span>Important: Attach your CV (PDF)</span>
+                    </p>
+                    <p className="font-inter text-xs text-amber-800 leading-relaxed">
+                      {applicant.cvFile
+                        ? `Don't forget to attach "${applicant.cvFile.name}" to your email before clicking Send!`
+                        : "Don't forget to attach your Resume / CV PDF file to your email before clicking Send!"}
+                    </p>
+                  </div>
 
-                <div>
-                  <span className="font-inter text-xs text-ly-gray block mb-1">Email Address *</span>
-                  <input
-                    type="email"
-                    required
-                    value={applicant.email}
-                    onChange={(e) => setApplicant({ ...applicant, email: e.target.value })}
-                    placeholder="alex@example.com"
-                    className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
-                  />
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
+                    {mailtoUrl && (
+                      <a
+                        href={mailtoUrl}
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-gilroy font-semibold text-sm rounded-full bg-ly-black text-white px-6 py-2.5 hover:bg-black transition-colors shadow-sm"
+                      >
+                        <span>Open Email Again</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    )}
+                    <button
+                      onClick={() => {
+                        setApplyModalOpen(false);
+                        setSubmitted(false);
+                        setApplicant({ name: "", email: "", portfolio: "", note: "", cvFile: null });
+                        setMailtoUrl("");
+                      }}
+                      className="w-full sm:w-auto font-gilroy font-medium text-sm rounded-full border border-ly-black px-6 py-2.5 hover:bg-ly-yellow transition-colors cursor-pointer"
+                    >
+                      Done / Close
+                    </button>
+                  </div>
                 </div>
+              ) : (
+                <>
+                  <div className="mb-5">
+                    <span className="font-gilroy font-bold text-xs uppercase tracking-wider text-ly-gray block">
+                      Application
+                    </span>
+                    <h3 className="font-gilroy font-semibold text-2xl text-ly-black mt-1">
+                      {applyingRole?.title}
+                    </h3>
+                  </div>
 
-                <div>
-                  <span className="font-inter text-xs text-ly-gray block mb-1">Portfolio / GitHub / LinkedIn *</span>
-                  <input
-                    type="url"
-                    required
-                    value={applicant.portfolio}
-                    onChange={(e) => setApplicant({ ...applicant, portfolio: e.target.value })}
-                    placeholder="https://github.com/yourhandle or portfolio link"
-                    className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
-                  />
-                </div>
+                  <form onSubmit={handleApplySubmit} className="flex flex-col gap-4">
+                    <div>
+                      <span className="font-inter text-xs text-ly-gray block mb-1">Your Full Name *</span>
+                      <input
+                        type="text"
+                        required
+                        value={applicant.name}
+                        onChange={(e) => setApplicant({ ...applicant, name: e.target.value })}
+                        placeholder="Alex Morgan"
+                        className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
+                      />
+                    </div>
 
-                <div>
-                  <span className="font-inter text-xs text-ly-gray block mb-1">Why do you want to build with HumStack?</span>
-                  <textarea
-                    rows={3}
-                    value={applicant.note}
-                    onChange={(e) => setApplicant({ ...applicant, note: e.target.value })}
-                    placeholder="Share a couple of sentences on what projects you love creating..."
-                    className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black resize-none"
-                  />
-                </div>
+                    <div>
+                      <span className="font-inter text-xs text-ly-gray block mb-1">Email Address *</span>
+                      <input
+                        type="email"
+                        required
+                        value={applicant.email}
+                        onChange={(e) => setApplicant({ ...applicant, email: e.target.value })}
+                        placeholder="alex@example.com"
+                        className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
+                      />
+                    </div>
 
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={busy}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-ly-black hover:bg-black text-white font-gilroy font-medium text-base py-3 rounded-full transition-colors cursor-pointer"
-                  >
-                    <span>{busy ? "Submitting..." : "Submit Application"}</span>
-                    <Send className="w-4 h-4" />
-                  </button>
-                </div>
-              </form>
+                    <div>
+                      <span className="font-inter text-xs text-ly-gray block mb-1">Portfolio / GitHub / LinkedIn *</span>
+                      <input
+                        type="url"
+                        required
+                        value={applicant.portfolio}
+                        onChange={(e) => setApplicant({ ...applicant, portfolio: e.target.value })}
+                        placeholder="https://github.com/yourhandle or portfolio link"
+                        className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
+                      />
+                    </div>
+
+                    {/* Resume / CV PDF File Input */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-inter text-xs text-ly-gray block">Resume / CV (PDF) *</span>
+                        <span className="font-inter text-[11px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60 font-medium">
+                          Attach in email
+                        </span>
+                      </div>
+                      <label className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-dashed border-gray-300 hover:border-ly-black bg-ly-ivory/50 hover:bg-ly-ivory transition-all cursor-pointer group">
+                        <Paperclip className="w-4 h-4 text-ly-gray group-hover:text-ly-black transition-colors shrink-0" />
+                        <span className="font-inter text-xs sm:text-sm text-ly-black truncate flex-1">
+                          {applicant.cvFile ? applicant.cvFile.name : "Select your Resume / CV (.pdf)"}
+                        </span>
+                        <input
+                          type="file"
+                          accept=".pdf,application/pdf"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              setApplicant((prev) => ({ ...prev, cvFile: file }));
+                            }
+                          }}
+                        />
+                        <span className="text-[11px] font-gilroy font-semibold uppercase px-2.5 py-1 bg-white border border-gray-200 rounded-md shadow-xs text-ly-black shrink-0">
+                          {applicant.cvFile ? "Change" : "Browse"}
+                        </span>
+                      </label>
+                      <p className="font-inter text-[11px] text-ly-gray mt-1 flex items-center gap-1">
+                        <span>💡</span>
+                        <span>Please also attach this PDF directly to the email draft before sending.</span>
+                      </p>
+                    </div>
+
+                    <div>
+                      <span className="font-inter text-xs text-ly-gray block mb-1">Why do you want to build with HumStack?</span>
+                      <textarea
+                        rows={3}
+                        value={applicant.note}
+                        onChange={(e) => setApplicant({ ...applicant, note: e.target.value })}
+                        placeholder="Share a couple of sentences on what projects you love creating..."
+                        className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black resize-none"
+                      />
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        type="submit"
+                        disabled={busy}
+                        className="w-full inline-flex items-center justify-center gap-2 bg-ly-black hover:bg-black text-white font-gilroy font-medium text-base py-3.5 rounded-full transition-colors cursor-pointer"
+                      >
+                        <span>{busy ? "Opening Your Email..." : "Send Application (Opens Email)"}</span>
+                        <Send className="w-4 h-4" />
+                      </button>
+                      <p className="font-inter text-[11px] text-ly-gray text-center mt-2.5 flex items-center justify-center gap-1">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                        Pre-fills an email to careers@humstack.in — attach your CV PDF before sending.
+                      </p>
+                    </div>
+                  </form>
+                </>
+              )}
             </motion.div>
           </div>
         )}
