@@ -42,26 +42,14 @@ class ErrorBoundary extends Component {
   }
 }
 
-const useCurrentPath = () => {
-  const getPath = () => {
-    if (typeof window === "undefined") return "/";
-    const hash = window.location.hash.replace(/^#/, "");
-    if (hash.startsWith("/")) return hash;
-    return window.location.pathname || "/";
-  };
-
-  const [path, setPath] = useState(getPath);
-
-  useEffect(() => {
-    const onLocationChange = () => setPath(getPath());
-    window.addEventListener("popstate", onLocationChange);
-    window.addEventListener("hashchange", onLocationChange);
-    return () => {
-      window.removeEventListener("popstate", onLocationChange);
-      window.removeEventListener("hashchange", onLocationChange);
-    };
-  }, []);
-
+const getAppPath = () => {
+  if (typeof window === "undefined") return "/";
+  const path = window.location.pathname || "/";
+  if (path === "/talk" || path === "/contact" || path === "/careers") return path;
+  const hash = window.location.hash.replace(/^#/, "");
+  if (hash === "/talk" || hash === "/contact" || hash === "/careers" || hash === "talk" || hash === "careers") {
+    return hash.startsWith("/") ? hash : `/${hash}`;
+  }
   return path;
 };
 
@@ -89,11 +77,38 @@ const TopRouteProgressBar = ({ currentPath }) => {
 };
 
 function App() {
-  const [contactOpen, setContactOpen] = useState(false);
-  const openContact = () => {
-    scrollToTarget("/talk");
+  const [currentPath, setCurrentPath] = useState(getAppPath);
+
+  const navigateTo = (newPath) => {
+    try {
+      if (window.location.pathname !== newPath) {
+        window.history.pushState({}, "", newPath);
+      }
+    } catch (e) {}
+    try {
+      if (window.location.hash) {
+        window.location.hash = "";
+      }
+    } catch (e) {}
+    setCurrentPath(newPath);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  const currentPath = useCurrentPath();
+
+  const openContact = () => {
+    navigateTo("/talk");
+  };
+
+  useEffect(() => {
+    const onLocationChange = () => {
+      setCurrentPath(getAppPath());
+    };
+    window.addEventListener("popstate", onLocationChange);
+    window.addEventListener("hashchange", onLocationChange);
+    return () => {
+      window.removeEventListener("popstate", onLocationChange);
+      window.removeEventListener("hashchange", onLocationChange);
+    };
+  }, []);
 
   // Handle direct scroll targets or instant scroll to top:
   useEffect(() => {

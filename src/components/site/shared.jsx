@@ -29,11 +29,20 @@ export const scrollToTarget = (target, onContact) => {
     target;
 
   if (norm === "contact" || norm === "/contact" || norm === "talk" || norm === "/talk" || norm === "lets-talk") {
-    if (window.location.pathname !== "/talk") {
-      window.history.pushState({}, "", "/talk");
-      window.dispatchEvent(new Event("popstate"));
+    if (onContact) {
+      onContact();
+      return;
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      try {
+        if (window.location.pathname !== "/talk") {
+          window.history.pushState({}, "", "/talk");
+        }
+      } catch (e) {}
+      window.dispatchEvent(new Event("popstate"));
+      window.dispatchEvent(new Event("hashchange"));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     return;
   }
 

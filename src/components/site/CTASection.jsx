@@ -9,7 +9,12 @@ export const CTASection = ({ onContact }) => (
     <div className="absolute inset-0 bg-black/45" />
     <div className="relative z-10 flex flex-col items-center px-4 text-center">
       <h2 className="font-gilroy font-light text-[34px] leading-tight md:text-[60px] md:leading-[1.15] lg:text-[76px] text-white tracking-tight">Got an idea? Let’s build it, together</h2>
-      <button onClick={onContact} className="cta-contact group relative mt-8 md:mt-10 flex items-center gap-3 rounded-full bg-ly-black text-white font-gilroy font-medium text-lg md:text-xl px-8 py-4 shadow-xl hover:bg-ly-yellow hover:text-ly-black transition-colors" data-testid="contact-us-btn">
+      <button
+        type="button"
+        onClick={onContact}
+        className="cta-contact group relative mt-8 md:mt-10 flex items-center gap-3 rounded-full bg-ly-black text-white font-gilroy font-medium text-lg md:text-xl px-8 py-4 shadow-xl hover:bg-ly-yellow hover:text-ly-black transition-colors cursor-pointer"
+        data-testid="contact-us-btn"
+      >
         {/* snail peeking out on hover */}
         <span className="cta-snail absolute -top-14 -left-10 w-24 pointer-events-none" aria-hidden="true">
           <SnailMascot className="w-full h-auto" animated />
