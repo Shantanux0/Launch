@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="15" fill="#FAE100" />
+  <!-- HumStack Arch/Dome -->
+  <path d="M 11 28 C 11 16.4 20.4 7 32 7 C 43.6 7 53 16.4 53 28 Z" fill="#232323" />
+  <!-- Three Pillars -->
+  <rect x="14.5" y="33" width="8.5" height="24" rx="2.5" fill="#232323" />
+  <rect x="27.75" y="33" width="8.5" height="24" rx="2.5" fill="#232323" />
+  <rect x="41" y="33" width="8.5" height="24" rx="2.5" fill="#232323" />
+</svg>

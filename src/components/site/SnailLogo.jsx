@@ -18,19 +18,20 @@ export const SnailMark = ({ className = "h-10 w-10", dark = false }) => (
 
 /** HumStack brand mark: Lemon Yellow Dome Icon company logo */
 export const HumStackMark = ({ className = "h-10 w-10", ring = false }) => (
-  <img
-    src="/img/lemon-yellow-dome-icon.png"
-    alt="HumStack logo"
-    className={`object-contain rounded-full select-none ${className} ${ring ? "ring-1 ring-black/5 shadow-2xs" : ""}`}
-  />
+  <span className={`relative inline-flex items-center justify-center rounded-full overflow-hidden shrink-0 select-none ${className} ${ring ? "ring-1.5 ring-black/10 shadow-sm" : ""}`}>
+    <img
+      src="/img/lemon-yellow-dome-icon.png"
+      alt="HumStack"
+      className="w-full h-full object-cover"
+    />
+  </span>
 );
 
 export const SnailLogo = () => (
-  <span className="flex items-center gap-2.5" data-testid="brand-logo">
-    <HumStackMark className="h-10 w-10 md:h-12 md:w-12" ring />
-    <span className="flex flex-col leading-none text-left">
-      <span className="font-gilroy text-[15px] md:text-[19px] font-semibold tracking-[0.18em] text-ly-black">HUMSTACK</span>
-      <span className="font-gilroy text-[8px] md:text-[10px] tracking-[0.12em] text-ly-black mt-1">Build. Launch. Grow.</span>
+  <span className="flex items-center gap-2.5 sm:gap-3 select-none group" data-testid="brand-logo">
+    <HumStackMark className="h-9 w-9 md:h-11 md:w-11 transition-transform duration-300 group-hover:scale-105" ring />
+    <span className="font-gilroy text-[20px] md:text-[23px] font-bold tracking-[0.04em] text-ly-black leading-none">
+      HumStack
     </span>
   </span>
 );

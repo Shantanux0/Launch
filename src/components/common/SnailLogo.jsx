@@ -22,37 +22,33 @@ export const SnailMark = ({ className = "h-10 w-10", dark = false }) => (
  * Humstack Brand Icon: Lemon Yellow Dome Icon company logo
  */
 export const HumstackIcon = ({ className = "h-9 w-9" }) => (
-  <img
-    src="/img/lemon-yellow-dome-icon.png"
-    alt="HumStack logo"
-    className={`object-contain rounded-full select-none ${className}`}
-  />
+  <span className={`relative inline-flex items-center justify-center rounded-full overflow-hidden shrink-0 select-none ${className} ring-1.5 ring-black/10 shadow-sm`}>
+    <img
+      src="/img/lemon-yellow-dome-icon.png"
+      alt="HumStack"
+      className="w-full h-full object-cover"
+    />
+  </span>
 );
 
 /**
- * Official Brand Logo matching the screenshot:
- * Humstack icon + HUMSTACK + "Build. Launch. Grow."
+ * Official Brand Logo:
+ * HumStack icon + HumStack
  */
 export const BrandLogo = () => (
-  <span className="flex items-center gap-2.5 text-left select-none group" data-testid="brand-logo">
-    <HumstackIcon className="h-9 w-9 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-105" />
-    <span className="flex flex-col leading-tight">
-      <span className="font-gilroy text-[15px] md:text-[17px] font-bold tracking-[0.14em] text-ly-black uppercase">
-        HUMSTACK
-      </span>
-      <span className="text-[9px] md:text-[10px] tracking-wide text-gray-400 font-normal">
-        Build. Launch. Grow.
-      </span>
+  <span className="flex items-center gap-2.5 sm:gap-3 text-left select-none group" data-testid="brand-logo">
+    <HumstackIcon className="h-9 w-9 md:h-11 md:w-11 transition-transform duration-300 group-hover:scale-105" />
+    <span className="font-gilroy text-[20px] md:text-[23px] font-bold tracking-[0.04em] text-ly-black leading-none">
+      HumStack
     </span>
   </span>
 );
 
 export const SnailLogo = () => (
-  <span className="flex items-center gap-2.5" data-testid="brand-logo-snail">
-    <SnailMark className="h-9 w-9 md:h-10 md:w-10" />
-    <span className="flex flex-col leading-none">
-      <span className="font-gilroy text-[15px] md:text-[18px] font-semibold tracking-[0.16em] text-ly-black">HUMSTACK</span>
-      <span className="font-gilroy text-[8px] md:text-[9.5px] tracking-[0.12em] text-ly-black mt-1">We design digital happiness</span>
+  <span className="flex items-center gap-2.5 sm:gap-3 select-none group" data-testid="brand-logo-snail">
+    <SnailMark className="h-9 w-9 md:h-11 md:w-11 transition-transform duration-300 group-hover:scale-105" />
+    <span className="font-gilroy text-[20px] md:text-[23px] font-bold tracking-[0.04em] text-ly-black leading-none">
+      HumStack
     </span>
   </span>
 );
