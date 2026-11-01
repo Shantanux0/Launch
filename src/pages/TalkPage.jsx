@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { toast } from "sonner";
-import { Mail, MessageCircle, Clock, ShieldCheck, CheckCircle2, ArrowRight, Sparkles, MapPin, Instagram } from "lucide-react";
+import { Mail, Clock, ShieldCheck, CheckCircle2, ArrowRight, Sparkles, MapPin, Instagram } from "lucide-react";
 import { SnailMark } from "../components/site/SnailLogo";
 import { SnailMascot } from "../components/site/SnailMascot";
 import { Navbar } from "../components/site/Navbar";
@@ -61,7 +61,7 @@ export const TalkPage = ({ onContact }) => {
       setSubmitted(true);
       toast.success("Thank you! Your message has landed in our studio inbox.");
     } catch {
-      toast.error("Couldn't send that right now. Please try again or reach out on WhatsApp.");
+      toast.error("Couldn't send that right now. Please try again or email us directly at hello@humstack.in.");
     } finally {
       setBusy(false);
     }
@@ -197,12 +197,12 @@ export const TalkPage = ({ onContact }) => {
                     </div>
 
                     <div className="mt-4">
-                      <span className="font-inter text-xs text-ly-gray block mb-1">Phone or WhatsApp (Optional)</span>
+                      <span className="font-inter text-xs text-ly-gray block mb-1">Phone Number (Optional)</span>
                       <input
                         type="tel"
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        placeholder="+91 98765 43210"
+                        placeholder="+91 98000 00000"
                         className="w-full font-inter text-sm sm:text-base px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:border-ly-black focus:ring-1 focus:ring-ly-black transition-all"
                       />
                     </div>
@@ -284,18 +284,6 @@ export const TalkPage = ({ onContact }) => {
                     <a href="mailto:hello@humstack.in" className="font-gilroy font-semibold text-sm sm:text-base text-ly-black hover:underline">
                       hello@humstack.in
                     </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 p-3 rounded-2xl bg-ly-ivory/60 hover:bg-ly-ivory transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-white shadow-xs flex items-center justify-center text-ly-black shrink-0">
-                    <MessageCircle className="w-5 h-5 text-emerald-600" />
-                  </div>
-                  <div>
-                    <span className="font-inter text-xs text-ly-gray block">WhatsApp / Call</span>
-                    <span className="font-gilroy font-semibold text-sm sm:text-base text-ly-black">
-                      +91 98765 43210
-                    </span>
                   </div>
                 </div>
 
