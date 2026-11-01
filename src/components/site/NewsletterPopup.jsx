@@ -58,7 +58,7 @@ export const NewsletterPopup = () => {
                     <input autoFocus required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-b border-ly-black text-base md:text-xl outline-none py-1" data-testid="newsletter-popup-email" />
                   </label>
                 ) : (
-                  <p className="font-gilroy text-sm md:text-xl text-ly-black">Design solutions, trusted by 100s of businesses, delivered to your inbox.</p>
+                  <p className="font-gilroy text-sm md:text-xl text-ly-black">Design solutions, trusted by 50s of businesses, delivered to your inbox.</p>
                 )}
                 <button type="submit" className="group shrink-0 flex items-center gap-2 md:gap-6 rounded-full bg-ly-yellow font-gilroy text-[11px] md:text-base px-[13px] md:px-6 py-[7px] md:py-4 transition-transform hover:scale-[1.03]" data-testid="newsletter-popup-signup">
                   Sign Me Up <ArrowRight className="w-4 h-4" />

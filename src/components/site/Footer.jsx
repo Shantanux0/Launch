@@ -61,7 +61,7 @@ const Newsletter = () => {
       <div className="flex flex-col md:flex-row gap-8 md:gap-16 px-4 md:px-16 pt-10 md:pt-14 pb-0">
         <div className="hidden md:block self-end"><Mailbox /></div>
         <div className="flex-1 md:pb-14">
-          <p className="font-gilroy font-semibold text-white text-xl md:text-2xl max-w-[600px] leading-snug">Design solutions, trusted by 100s of businesses, delivered to your inbox.</p>
+          <p className="font-gilroy font-semibold text-white text-xl md:text-2xl max-w-[600px] leading-snug">Design solutions, trusted by 50s of businesses, delivered to your inbox.</p>
           <p className="font-inter text-white/80 text-sm mt-3">News, trends, case studies: you name it, you get it.</p>
         </div>
         <form onSubmit={submit} className="flex-1 flex flex-col gap-6 pb-12 md:pb-14" data-testid="footer-newsletter-form">
