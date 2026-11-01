@@ -12,7 +12,6 @@ import { CTASection } from "./components/site/CTASection";
 import { FAQSection } from "./components/site/FAQSection";
 import { Footer } from "./components/site/Footer";
 import { ContactDialog } from "./components/site/ContactDialog";
-import { NewsletterPopup } from "./components/site/NewsletterPopup";
 import { BackToTop, Loader } from "./components/site/Extras";
 import { executeScrollTo } from "./components/site/shared";
 import { TalkPage } from "./pages/TalkPage";
@@ -148,7 +147,6 @@ function App() {
             <FAQSection onContact={openContact} />
           </main>
           <Footer onContact={openContact} />
-          <NewsletterPopup />
           <BackToTop />
         </div>
       );

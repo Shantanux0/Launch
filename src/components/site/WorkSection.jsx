@@ -94,7 +94,7 @@ export const WorkSection = ({ onContact }) => {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
                 data-testid="work-active-details"
               >
                 {/* Title with Arrow */}
@@ -140,7 +140,7 @@ export const WorkSection = ({ onContact }) => {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.01 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  transition={{ duration: 0.55, ease: "easeOut" }}
                   className="w-full h-full relative flex items-center justify-center overflow-hidden"
                 >
                   <img
