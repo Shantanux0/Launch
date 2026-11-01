@@ -602,7 +602,7 @@ export const CareersPage = ({ onContact }) => {
                     required
                     value={applicant.name}
                     onChange={(e) => setApplicant({ ...applicant, name: e.target.value })}
-                    placeholder="Aditi Sharma"
+                    placeholder="Alex Morgan"
                     className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
                   />
                 </div>
@@ -614,7 +614,7 @@ export const CareersPage = ({ onContact }) => {
                     required
                     value={applicant.email}
                     onChange={(e) => setApplicant({ ...applicant, email: e.target.value })}
-                    placeholder="aditi@example.com"
+                    placeholder="alex@example.com"
                     className="w-full font-inter text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-ly-black"
                   />
                 </div>

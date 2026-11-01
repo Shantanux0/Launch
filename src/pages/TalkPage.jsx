@@ -241,7 +241,7 @@ Sent via HumStack.in project inquiry form`;
                           required
                           value={form.name}
                           onChange={(e) => setForm({ ...form, name: e.target.value })}
-                          placeholder="Shantanu Kale"
+                          placeholder="Bob Smith"
                           className="w-full font-inter text-sm sm:text-base px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:border-ly-black focus:ring-1 focus:ring-ly-black transition-all"
                         />
                       </div>
@@ -252,7 +252,7 @@ Sent via HumStack.in project inquiry form`;
                           required
                           value={form.email}
                           onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          placeholder="shantanu@company.com"
+                          placeholder="bob@company.com"
                           className="w-full font-inter text-sm sm:text-base px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:border-ly-black focus:ring-1 focus:ring-ly-black transition-all"
                         />
                       </div>
