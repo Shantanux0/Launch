@@ -98,7 +98,7 @@ export const Footer = ({ onContact }) => (
             <div className="flex flex-col" data-testid="footer-brand">
               <span className="font-gilroy font-bold text-3xl md:text-[44px] tracking-[0.06em] text-white">HumStack</span>
             </div>
-            <HumStackMark className="h-14 w-14 md:h-18 md:w-18 snail-mark-wiggle bg-white p-1 rounded-full shadow-md" />
+            <HumStackMark className="h-14 w-14 md:h-18 md:w-18 snail-mark-wiggle bg-white rounded-full shadow-md" />
           </div>
           <p className="flex items-center gap-2 mt-3 md:mt-4 font-inter text-xs md:text-sm text-white/80">Designed with love <Heart className="w-4 h-4 fill-ly-yellow text-ly-yellow" /></p>
         </div>

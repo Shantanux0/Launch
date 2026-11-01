@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="15" fill="#FAE100" />
-  <!-- HumStack Arch/Dome -->
-  <path d="M 11 28 C 11 16.4 20.4 7 32 7 C 43.6 7 53 16.4 53 28 Z" fill="#232323" />
+  <!-- Circular White Disc -->
+  <circle cx="32" cy="32" r="31" fill="#FFFFFF" />
+  <!-- Lemon Yellow Dome -->
+  <path d="M 13 31 C 13 20.5 21.5 12 32 12 C 42.5 12 51 20.5 51 31 Z" fill="#FAE100" />
   <!-- Three Pillars -->
-  <rect x="14.5" y="33" width="8.5" height="24" rx="2.5" fill="#232323" />
-  <rect x="27.75" y="33" width="8.5" height="24" rx="2.5" fill="#232323" />
-  <rect x="41" y="33" width="8.5" height="24" rx="2.5" fill="#232323" />
+  <rect x="17" y="34" width="7" height="17" rx="2" fill="#1A1A1A" />
+  <rect x="28.5" y="34" width="7" height="17" rx="2" fill="#1A1A1A" />
+  <rect x="40" y="34" width="7" height="17" rx="2" fill="#1A1A1A" />
 </svg>
-

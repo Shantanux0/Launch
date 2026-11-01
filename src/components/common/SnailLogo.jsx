@@ -26,7 +26,7 @@ export const HumstackIcon = ({ className = "h-9 w-9" }) => (
     <img
       src="/img/lemon-yellow-dome-icon.png"
       alt="HumStack"
-      className="w-full h-full object-cover"
+      className="w-full h-full object-contain rounded-full"
     />
   </span>
 );

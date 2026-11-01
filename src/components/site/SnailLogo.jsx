@@ -22,7 +22,7 @@ export const HumStackMark = ({ className = "h-10 w-10", ring = false }) => (
     <img
       src="/img/lemon-yellow-dome-icon.png"
       alt="HumStack"
-      className="w-full h-full object-cover"
+      className="w-full h-full object-contain rounded-full"
     />
   </span>
 );
